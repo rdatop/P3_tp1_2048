@@ -50,6 +50,7 @@ public class Interfaz_ppal {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JTextPane matriz_i0j0 = new JTextPane();
+		matriz_i0j0.setEditable(false);
 		matriz_i0j0.setFont(new Font("Dialog", Font.BOLD, 18));
 		matriz_i0j0.setToolTipText("i0 j0");
 		matriz_i0j0.setBounds(25, 165, 53, 53);
@@ -164,7 +165,8 @@ public class Interfaz_ppal {
 		frame.getContentPane().add(btnJugar);
 		
 		JButton btnOtraVez = new JButton("Otra Vez");
-		btnOtraVez.setBounds(324, 369, 80, 24);
+		btnOtraVez.setFont(new Font("Dialog", Font.BOLD, 10));
+		btnOtraVez.setBounds(267, 371, 80, 24);
 		frame.getContentPane().add(btnOtraVez);
 		
 		JTextPane txtRaglas = new JTextPane();
@@ -173,5 +175,10 @@ public class Interfaz_ppal {
 		txtRaglas.setText("\r\nEl juego es facil, tienes que llegar a 2048 en esta grilla 4 X 4. En cada turno, el jugador presiona una de las flechas del cursor y los numeros se mueven en la direccion especifcada por el usuario. En cada turno, aparece un nuevo numero en la grilla, que puede ser 2 o 4. Cuando dos numeros iguales colisionan se suman en una unica celda y asi hasta llegar a 2048......Mucha suerte!!");
 		txtRaglas.setBounds(25, 12, 440, 117);
 		frame.getContentPane().add(txtRaglas);
+		
+		JButton btnPosiciones = new JButton("Posiciones");
+		btnPosiciones.setFont(new Font("Dialog", Font.BOLD, 10));
+		btnPosiciones.setBounds(387, 371, 89, 24);
+		frame.getContentPane().add(btnPosiciones);
 	}
 }
