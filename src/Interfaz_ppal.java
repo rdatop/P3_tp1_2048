@@ -50,8 +50,7 @@ public class Interfaz_ppal {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JTextPane matriz_i0j0 = new JTextPane();
-		matriz_i0j0.setEditable(false);
-		matriz_i0j0.setFont(new Font("Dialog", Font.BOLD, 18));
+		matriz_i0j0.setFont(new Font("Dialog", Font.BOLD, 28));
 		matriz_i0j0.setToolTipText("i0 j0");
 		matriz_i0j0.setBounds(25, 165, 53, 53);
 		
