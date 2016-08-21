@@ -147,7 +147,7 @@ public class Interfaz_ppal {
 		frame.getContentPane().add(lblPuntuacon);
 		
 		txtPuntos = new JTextField();
-		txtPuntos.setBounds(355, 256, 84, 20);
+		txtPuntos.setBounds(350, 256, 84, 20);
 		frame.getContentPane().add(txtPuntos);
 		txtPuntos.setColumns(10);
 		
@@ -157,7 +157,7 @@ public class Interfaz_ppal {
 		
 		txtRecord = new JTextField();
 		txtRecord.setColumns(10);
-		txtRecord.setBounds(355, 316, 84, 20);
+		txtRecord.setBounds(350, 316, 84, 20);
 		frame.getContentPane().add(txtRecord);
 		
 		JButton btnJugar = new JButton("Jugar");
