@@ -1,9 +1,11 @@
+package vistas;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import Juego.Matriz;
 
-public class Interfaz_ppal_beta {
+import logica_negocio.Matriz;
+
+public class Interfaz_principal {
 
 	private static final JLabel[][] matriz = new JLabel[4][4];
 	private JFrame frmMatriz;
@@ -15,7 +17,7 @@ public class Interfaz_ppal_beta {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Interfaz_ppal_beta window = new Interfaz_ppal_beta();
+					Interfaz_principal window = new Interfaz_principal();
 					window.frmMatriz.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +29,7 @@ public class Interfaz_ppal_beta {
 	/**
 	 * Create the application.
 	 */
-	public Interfaz_ppal_beta() {
+	public Interfaz_principal() {
 		initialize(new Matriz());
 	}
 
@@ -36,6 +38,6 @@ public class Interfaz_ppal_beta {
 	 */
 	private void initialize(final Matriz juego) {
 		frmMatriz = new JFrame();
-		Juego.Tablero.agregaKeyListener(frmMatriz, juego, matriz);
+		logica_negocio.Tablero.agregaKeyListener(frmMatriz, juego, matriz);
 	}
 }

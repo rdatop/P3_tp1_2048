@@ -1,4 +1,4 @@
-package Juego;
+package logica_negocio;
 
 import java.util.Random;
 
