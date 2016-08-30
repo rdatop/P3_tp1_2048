@@ -231,6 +231,7 @@ public class Matriz {
 		MatrizAux1.toString();
 		_MatrizActual = MatrizAux1;
 	}
+	
 	/**-------------------------------------------------------------------------------------*/
 	
 	//representacion de la matriz	
