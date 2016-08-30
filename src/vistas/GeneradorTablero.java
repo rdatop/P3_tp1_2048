@@ -1,4 +1,4 @@
-package logica_negocio;
+package vistas;
 
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -11,7 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
-public class Tablero 
+import logica_negocio.Matriz;
+
+public class GeneradorTablero 
 {
 	public static JFrame agregaKeyListener(JFrame frmMatriz,Matriz juego,JLabel[][] matriz)
 	{

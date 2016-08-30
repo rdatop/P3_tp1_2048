@@ -38,6 +38,6 @@ public class Interfaz_principal {
 	 */
 	private void initialize(final Matriz juego) {
 		frmMatriz = new JFrame();
-		logica_negocio.Tablero.agregaKeyListener(frmMatriz, juego, matriz);
+		vistas.GeneradorTablero.agregaKeyListener(frmMatriz, juego, matriz);
 	}
 }
