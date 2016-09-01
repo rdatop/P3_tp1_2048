@@ -7,8 +7,8 @@ import logica_negocio.Matriz;
 
 public class Interfaz_principal {
 
-	private static final JLabel[][] matriz = new JLabel[4][4];
-	private JFrame frmMatriz;
+	private static final JLabel[][] matrizLabels = new JLabel[4][4];
+	private JFrame frameMatriz;
 
 	/**
 	 * Launch the application.
@@ -18,7 +18,7 @@ public class Interfaz_principal {
 			public void run() {
 				try {
 					Interfaz_principal window = new Interfaz_principal();
-					window.frmMatriz.setVisible(true);
+					window.frameMatriz.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -37,7 +37,8 @@ public class Interfaz_principal {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(final Matriz juego) {
-		frmMatriz = new JFrame();
-		vistas.GeneradorTablero.agregaKeyListener(frmMatriz, juego, matriz);
+		frameMatriz = new JFrame();
+		GeneradorTablero generador=new GeneradorTablero();
+		generador.creaVistaJuego(frameMatriz, juego, matrizLabels);
 	}
 }

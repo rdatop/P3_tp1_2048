@@ -15,86 +15,138 @@ import logica_negocio.Matriz;
 
 public class GeneradorTablero 
 {
-	public static JFrame agregaKeyListener(JFrame frmMatriz,Matriz juego,JLabel[][] matriz)
+	public JFrame creaVistaJuego(JFrame frameMatriz,Matriz juego,JLabel[][] matrizLabels)
 	{
-		frmMatriz.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				switch (e.getKeyCode()) {
-					case KeyEvent.VK_UP:
-						frmMatriz.setTitle("Arriba");
-						juego.MoverHaciaArriba();
-						juego.AsignaPosRandom();
-						dibujarTablero(juego,matriz);
-						break;
-					case KeyEvent.VK_DOWN:
-						frmMatriz.setTitle("Abajo");
-						juego.MoverHaciaAbajo();
-						juego.AsignaPosRandom();
-						dibujarTablero(juego,matriz);
-						break;
-					case KeyEvent.VK_LEFT:
-						frmMatriz.setTitle("Izq");
-						juego.MoverHaciaIzq();	
-						juego.AsignaPosRandom();
-						dibujarTablero(juego,matriz);
-						break;
-					case KeyEvent.VK_RIGHT:
-						frmMatriz.setTitle("Der");
-						juego.MoverHaciaDer();	
-						juego.AsignaPosRandom();
-						dibujarTablero(juego,matriz);
-						break;
-					case KeyEvent.VK_ESCAPE:
-						frmMatriz.setTitle("salir");
-						break;
-				}
-			}
-		});
-		
-		frmMatriz.setResizable(false);
-		frmMatriz.setTitle("Matriz");
-		frmMatriz.setBounds(100, 100, 480, 480);
-		frmMatriz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		// Se crea una matriz 4x4 para acomodar las etiquetas
-		frmMatriz.getContentPane().setLayout(new GridLayout(4, 4));
-
+		this.oirEventosTeclado(frameMatriz, juego, matrizLabels);
+		this.configInicialFrameJuego(frameMatriz);
 		
 		juego.IniciarMatriz();
 		juego.AsignaPosRandom();
 		juego.AsignaPosRandom();
 
 		Border borde = BorderFactory.createLineBorder(Color.DARK_GRAY, 2);
-
-		// Ahora se crea una matriz de JLabel
-		// no puedo hacer q se vea desde Dsign porque se despelota
-		// trate de hacer algo para que veas esto hacelo de nuevo vos porque es una porqueria
 		
-		for (int i = 0; i < matriz.length; i++) {
-			for (int j = 0; j < matriz.length; j++) {
+		populaMatrizLabels(frameMatriz, juego, matrizLabels, borde);
+
+		
+		creaTextosDeLabels(borde);
+		
+		return frameMatriz;
+	}
+	
+	private void populaMatrizLabels(JFrame frameMatriz, Matriz juego, JLabel[][] matrizLabels, Border borde) {
+		for (int i = 0; i < matrizLabels.length; i++) {
+			for (int j = 0; j < matrizLabels.length; j++) {
 				int numero = juego.ObtenerElem(i, j);
 				
 				// Se crean las etiquetas
 				if (numero != 0) {
-					matriz[i][j] = new JLabel(String.valueOf(juego.ObtenerElem(i, j)));
-					matriz[i][j].setBackground(Color.CYAN);//.lightGray
+					matrizLabels[i][j] = new JLabel(String.valueOf(juego.ObtenerElem(i, j)));
+					matrizLabels[i][j].setBackground(Color.CYAN);//.lightGray
 				} else {
-					matriz[i][j] = new JLabel(String.valueOf(""));
+					matrizLabels[i][j] = new JLabel(String.valueOf(""));
 				}
 				
 				// Para que se pueda ver el color de fondo
-				matriz[i][j].setOpaque(true);
+				matrizLabels[i][j].setOpaque(true);
 				// centrado de la etiqueta
-				matriz[i][j].setHorizontalAlignment(SwingConstants.CENTER);
+				matrizLabels[i][j].setHorizontalAlignment(SwingConstants.CENTER);
 				// borde de etiqueta
-				matriz[i][j].setBorder(borde);
+				matrizLabels[i][j].setBorder(borde);
 				// se colocan etiquetas en formulario
-				frmMatriz.getContentPane().add(matriz[i][j]);
+				frameMatriz.getContentPane().add(matrizLabels[i][j]);
 			}
 		}
+	}
 
+	/*-- Métodos auxiliares --*/
+	private void oirEventosTeclado(JFrame frameMatriz, Matriz juego, JLabel[][] matrizJLabel) {
+		frameMatriz.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				switch (e.getKeyCode()) {
+					case KeyEvent.VK_UP:
+						frameMatriz.setTitle("Arriba");
+						juego.MoverHaciaArriba();
+						juego.AsignaPosRandom();
+						dibujarTablero(juego,matrizJLabel);
+						break;
+					case KeyEvent.VK_DOWN:
+						frameMatriz.setTitle("Abajo");
+						juego.MoverHaciaAbajo();
+						juego.AsignaPosRandom();
+						dibujarTablero(juego,matrizJLabel);
+						break;
+					case KeyEvent.VK_LEFT:
+						frameMatriz.setTitle("Izq");
+						juego.MoverHaciaIzq();	
+						juego.AsignaPosRandom();
+						dibujarTablero(juego,matrizJLabel);
+						break;
+					case KeyEvent.VK_RIGHT:
+						frameMatriz.setTitle("Der");
+						juego.MoverHaciaDer();	
+						juego.AsignaPosRandom();
+						dibujarTablero(juego,matrizJLabel);
+						break;
+					case KeyEvent.VK_ESCAPE:
+						frameMatriz.setTitle("salir");
+						break;
+				}
+			}
+		});
+	}
+	
+	private void configInicialFrameJuego(JFrame frameMatriz) {
+		frameMatriz.setResizable(false);
+		frameMatriz.setTitle("Matriz");
+		frameMatriz.setBounds(100, 100, 480, 480);
+		frameMatriz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		// Se crea una matriz 4x4 para acomodar las etiquetas
+		frameMatriz.getContentPane().setLayout(new GridLayout(4, 4));
+	}
+	
+	public static void dibujarTablero(Matriz juego,JLabel[][] matrizJLabels) {
+		for (int i = 0; i < matrizJLabels.length; i++) {
+			for (int j = 0; j < matrizJLabels.length; j++) {
+				int numero = juego.ObtenerElem(i, j);
+				
+				switch (numero) {
+					case 0:
+						matrizJLabels[i][j].setText("");
+						matrizJLabels[i][j].setBackground(Color.LIGHT_GRAY);						
+						break;
+					case 2:
+						matrizJLabels[i][j].setText(String.valueOf(numero));
+						matrizJLabels[i][j].setBackground(Color.CYAN);
+						break;
+					case 4:
+						matrizJLabels[i][j].setText(String.valueOf(numero));
+						matrizJLabels[i][j].setBackground(Color.YELLOW);
+						break;
+					case 8:
+						matrizJLabels[i][j].setText(String.valueOf(numero));
+						matrizJLabels[i][j].setBackground(Color.ORANGE);
+						break;
+					case 16:
+						matrizJLabels[i][j].setText(String.valueOf(numero));
+						matrizJLabels[i][j].setBackground(Color.pink);
+						break;
+					case 32:
+						matrizJLabels[i][j].setText(String.valueOf(numero));
+						matrizJLabels[i][j].setBackground(Color.red);
+						break;
+					default:
+						matrizJLabels[i][j].setText(String.valueOf(numero));
+						matrizJLabels[i][j].setBackground(Color.DARK_GRAY);						
+						break;
+				}
+			}
+		}
+	}
+	
+	private void creaTextosDeLabels(Border borde) {
 		// Se crean los textos que representan la matriz
 		JLabel lbl1 = new JLabel("i0-j0");
 		JLabel lbl2 = new JLabel("i0-j1");
@@ -168,46 +220,5 @@ public class GeneradorTablero
 		frmMatriz.getContentPane().add(lbl15);
 		frmMatriz.getContentPane().add(lbl16);
 		*/
-		
-		return frmMatriz;
-	}
-	
-	public static void dibujarTablero(Matriz juego,JLabel[][] matrizJLabels) {
-		for (int i = 0; i < matrizJLabels.length; i++) {
-			for (int j = 0; j < matrizJLabels.length; j++) {
-				int numero = juego.ObtenerElem(i, j);
-				
-				switch (numero) {
-					case 0:
-						matrizJLabels[i][j].setText("");
-						matrizJLabels[i][j].setBackground(Color.LIGHT_GRAY);						
-						break;
-					case 2:
-						matrizJLabels[i][j].setText(String.valueOf(numero));
-						matrizJLabels[i][j].setBackground(Color.CYAN);
-						break;
-					case 4:
-						matrizJLabels[i][j].setText(String.valueOf(numero));
-						matrizJLabels[i][j].setBackground(Color.YELLOW);
-						break;
-					case 8:
-						matrizJLabels[i][j].setText(String.valueOf(numero));
-						matrizJLabels[i][j].setBackground(Color.ORANGE);
-						break;
-					case 16:
-						matrizJLabels[i][j].setText(String.valueOf(numero));
-						matrizJLabels[i][j].setBackground(Color.pink);
-						break;
-					case 32:
-						matrizJLabels[i][j].setText(String.valueOf(numero));
-						matrizJLabels[i][j].setBackground(Color.red);
-						break;
-					default:
-						matrizJLabels[i][j].setText(String.valueOf(numero));
-						matrizJLabels[i][j].setBackground(Color.DARK_GRAY);						
-						break;
-				}
-			}
-		}
 	}
 }
