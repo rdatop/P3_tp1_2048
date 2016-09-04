@@ -1,21 +1,21 @@
 package vistas;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-@SuppressWarnings("serial")
-public class VentanaIniciarJuego extends JFrame {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
+public class Main {
+
+	private JFrame frame;
 	private JPanel contentPane;
 	private JTextField txtNombre;
 	private String nombreJugador;
@@ -27,8 +27,8 @@ public class VentanaIniciarJuego extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaIniciarJuego frame = new VentanaIniciarJuego();
-					frame.setVisible(true);
+					Main window = new Main();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -37,16 +37,30 @@ public class VentanaIniciarJuego extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the application.
 	 */
-	public VentanaIniciarJuego() {
+	public Main() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
 		nombreJugador="";
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		frame.setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		
+		JLabel lblBienvenidoA = new JLabel("Bienvenido a 2048");
+		lblBienvenidoA.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblBienvenidoA.setBounds(99, 11, 253, 40);
+		contentPane.add(lblBienvenidoA);
 		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(155, 96, 197, 20);
@@ -67,7 +81,7 @@ public class VentanaIniciarJuego extends JFrame {
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				if(txtNombre.getText().equals("")){
-					lblNombreObligatorio.setVisible(true);//refactorizar!!!!!
+					lblNombreObligatorio.setVisible(true);
 				}else
 				{
 					lblNombreObligatorio.setVisible(false);
@@ -78,13 +92,7 @@ public class VentanaIniciarJuego extends JFrame {
 		btnJugar.setBounds(189, 156, 89, 23);
 		contentPane.add(btnJugar);
 		
-		JLabel lblBienvenidoA = new JLabel("Bienvenido a 2048");
-		lblBienvenidoA.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblBienvenidoA.setBounds(99, 11, 253, 40);
-		contentPane.add(lblBienvenidoA);
+		
 	}
-	
-	public String getNombreJugador(){
-		return nombreJugador;
-	}
+
 }

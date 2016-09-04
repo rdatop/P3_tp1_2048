@@ -2,7 +2,6 @@ package vistas;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import vistas.VentanaIniciarJuego;
 import logica_negocio.Matriz;
 
 public class Interfaz_principal {
