@@ -2,7 +2,7 @@ package vistas;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
+import vistas.VentanaIniciarJuego;
 import logica_negocio.Matriz;
 
 public class Interfaz_principal {
@@ -37,8 +37,11 @@ public class Interfaz_principal {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(final Matriz juego) {
+		
+		//crea vista de juego
 		frameMatriz = new JFrame();
 		GeneradorTablero generador=new GeneradorTablero();
 		generador.creaVistaJuego(frameMatriz, juego, matrizLabels);
+		frameMatriz.setVisible(false);
 	}
 }

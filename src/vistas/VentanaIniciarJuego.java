@@ -13,12 +13,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
+@SuppressWarnings("serial")
 public class VentanaIniciarJuego extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtNombre;
 
@@ -82,7 +79,5 @@ public class VentanaIniciarJuego extends JFrame {
 		lblBienvenidoA.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblBienvenidoA.setBounds(99, 11, 253, 40);
 		contentPane.add(lblBienvenidoA);
-		
-		
 	}
 }
