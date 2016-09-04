@@ -82,6 +82,10 @@ public class VentanaIniciarJuego extends JFrame {
 		lblBienvenidoA.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblBienvenidoA.setBounds(99, 11, 253, 40);
 		contentPane.add(lblBienvenidoA);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 10, 10);
+		contentPane.add(panel);
 	}
 	
 	public String getNombreJugador(){
