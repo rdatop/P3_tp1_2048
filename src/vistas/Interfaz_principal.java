@@ -40,7 +40,7 @@ public class Interfaz_principal {
 		//crea vista de juego
 		frameMatriz = new JFrame();
 		GeneradorTablero generador=new GeneradorTablero();
-		generador.creaVistaJuego(frameMatriz, juego, matrizLabels);
+		generador.creaFrameJuego(frameMatriz, juego, matrizLabels);
 		frameMatriz.setVisible(false);
 	}
 }

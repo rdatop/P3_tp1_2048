@@ -1,5 +1,6 @@
 package vistas;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -11,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+//import logica_negocio.Matriz;
 
 public class Main {
 
@@ -49,11 +52,13 @@ public class Main {
 	private void initialize() {
 		nombreJugador="";
 		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new CardLayout(0, 0));
+		
 		panelInicial = new JPanel();
 		panelInicial.setBorder(new EmptyBorder(5, 5, 5, 5));
-		frame.setContentPane(panelInicial);
+		frame.getContentPane().add(panelInicial, "name_14773862535808");
 		panelInicial.setLayout(null);
 		
 		JLabel lblBienvenidoA = new JLabel("Bienvenido a 2048");
@@ -87,6 +92,7 @@ public class Main {
 				{
 					lblNombreObligatorio.setVisible(false);
 					nombreJugador=txtNombre.getText();
+					//frame=new GeneradorTablero().creaFrameJuego(frame,new Matriz(),new JLabel[4][4]);
 				}
 			}
 		});	

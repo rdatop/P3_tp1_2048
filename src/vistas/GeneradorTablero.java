@@ -15,7 +15,7 @@ import logica_negocio.Matriz;
 
 public class GeneradorTablero 
 {
-	public JFrame creaVistaJuego(JFrame frameMatriz,Matriz juego,JLabel[][] matrizLabels)
+	public JFrame creaFrameJuego(JFrame frameMatriz,Matriz juego,JLabel[][] matrizLabels)
 	{
 		this.oirEventosTeclado(frameMatriz, juego, matrizLabels);
 		this.configInicialFrameJuego(frameMatriz);
