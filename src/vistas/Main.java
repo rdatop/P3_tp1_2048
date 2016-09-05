@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import logica_negocio.Matriz;
+
 //import logica_negocio.Matriz;
 
 public class Main {
@@ -107,9 +109,9 @@ public class Main {
 				{
 					lblNombreObligatorio.setVisible(false);
 					nombreJugador=txtNombre.getText();
-					panelInicial.setVisible(false);
-					panelJuego.setVisible(true);
-					//frame=new GeneradorTablero().creaFrameJuego(frame,new Matriz(),new JLabel[4][4]);
+					frame.setVisible(false);
+					JFrame frameJuego=new GeneradorTablero().creaFrameJuego(new Matriz(),new JLabel[4][4]);
+					frameJuego.setVisible(true);
 				}
 			}
 		});	

@@ -15,10 +15,16 @@ import logica_negocio.Matriz;
 
 public class GeneradorTablero 
 {
-	public JFrame creaFrameJuego(JFrame frameMatriz,Matriz juego,JLabel[][] matrizLabels)
+	
+	private JFrame frame;
+	public GeneradorTablero(){
+		frame=new JFrame();
+	}
+	
+	public JFrame creaFrameJuego(Matriz juego,JLabel[][] matrizLabels)
 	{
-		this.oirEventosTeclado(frameMatriz, juego, matrizLabels);
-		this.configInicialFrameJuego(frameMatriz);
+		this.oirEventosTeclado(frame, juego, matrizLabels);
+		this.configInicialFrameJuego(frame);
 		
 		juego.IniciarMatriz();
 		juego.AsignaPosRandom();
@@ -26,12 +32,12 @@ public class GeneradorTablero
 
 		Border borde = BorderFactory.createLineBorder(Color.DARK_GRAY, 2);
 		
-		populaMatrizLabels(frameMatriz, juego, matrizLabels, borde);
+		populaMatrizLabels(frame, juego, matrizLabels, borde);
 
 		
 		creaTextosDeLabels(borde);
 		
-		return frameMatriz;
+		return frame;
 	}
 	
 	private void populaMatrizLabels(JFrame frameMatriz, Matriz juego, JLabel[][] matrizLabels, Border borde) {
