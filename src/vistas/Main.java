@@ -12,19 +12,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
 import logica_negocio.Matriz;
-
-//import logica_negocio.Matriz;
 
 public class Main {
 
-	private JFrame frame;
+	private JFrame frameInicial;
+	private JFrame frameJuego;
 	private JPanel panelInicial;
 	private JTextField txtNombre;
 	@SuppressWarnings("unused")
 	private String nombreJugador;
-	private JTextField txtOculto;
 
 	/**
 	 * Launch the application.
@@ -34,7 +31,7 @@ public class Main {
 			public void run() {
 				try {
 					Main window = new Main();
-					window.frame.setVisible(true);
+					window.frameInicial.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,14 +51,14 @@ public class Main {
 	 */
 	private void initialize() {
 		nombreJugador="";
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new CardLayout(0, 0));
+		frameInicial = new JFrame();
+		frameInicial.setBounds(100, 100, 450, 300);
+		frameInicial.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frameInicial.getContentPane().setLayout(new CardLayout(0, 0));
 		
 		panelInicial = new JPanel();
 		panelInicial.setBorder(new EmptyBorder(5, 5, 5, 5));
-		frame.getContentPane().add(panelInicial, "name_14773862535808");
+		frameInicial.getContentPane().add(panelInicial, "name_14773862535808");
 		panelInicial.setLayout(null);
 		
 		JLabel lblBienvenidoA = new JLabel("Bienvenido a 2048");
@@ -88,19 +85,6 @@ public class Main {
 		btnJugar.setBounds(189, 156, 89, 23);
 		panelInicial.add(btnJugar);
 		
-		/////////////////////////////////////
-		JPanel panelJuego = new JPanel();
-		frame.getContentPane().add(panelJuego, "name_4221770766301");
-		panelJuego.setLayout(null);
-		
-		txtOculto = new JTextField();
-		txtOculto.setText("cualca");
-		txtOculto.setBounds(102, 101, 86, 20);
-		panelJuego.add(txtOculto);
-		txtOculto.setColumns(10);
-		panelJuego.setVisible(false);
-		//////////////////////////////////////
-		
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				if(txtNombre.getText().equals("")){
@@ -109,8 +93,8 @@ public class Main {
 				{
 					lblNombreObligatorio.setVisible(false);
 					nombreJugador=txtNombre.getText();
-					frame.setVisible(false);
-					JFrame frameJuego=new GeneradorTablero().creaFrameJuego(new Matriz(),new JLabel[4][4]);
+					frameInicial.setVisible(false);
+					frameJuego=new GeneradorTablero().creaFrameJuego(new Matriz(),new JLabel[4][4]);
 					frameJuego.setVisible(true);
 				}
 			}
