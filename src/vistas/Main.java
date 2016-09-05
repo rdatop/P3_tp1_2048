@@ -22,6 +22,7 @@ public class Main {
 	private JTextField txtNombre;
 	@SuppressWarnings("unused")
 	private String nombreJugador;
+	private JTextField txtOculto;
 
 	/**
 	 * Launch the application.
@@ -84,6 +85,20 @@ public class Main {
 		JButton btnJugar = new JButton("Jugar");
 		btnJugar.setBounds(189, 156, 89, 23);
 		panelInicial.add(btnJugar);
+		
+		/////////////////////////////////////
+		JPanel panelJuego = new JPanel();
+		frame.getContentPane().add(panelJuego, "name_4221770766301");
+		panelJuego.setLayout(null);
+		
+		txtOculto = new JTextField();
+		txtOculto.setText("cualca");
+		txtOculto.setBounds(102, 101, 86, 20);
+		panelJuego.add(txtOculto);
+		txtOculto.setColumns(10);
+		panelJuego.setVisible(false);
+		//////////////////////////////////////
+		
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
 				if(txtNombre.getText().equals("")){
@@ -92,6 +107,8 @@ public class Main {
 				{
 					lblNombreObligatorio.setVisible(false);
 					nombreJugador=txtNombre.getText();
+					panelInicial.setVisible(false);
+					panelJuego.setVisible(true);
 					//frame=new GeneradorTablero().creaFrameJuego(frame,new Matriz(),new JLabel[4][4]);
 				}
 			}
