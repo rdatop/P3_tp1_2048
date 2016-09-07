@@ -1,101 +1,69 @@
 package logica_negocio;
 
-import java.util.Random;
-
 public class Matriz {
-	
-	//variable de instancia
-	private int[][] _MatrizActual;
-		
-	// Constructor
+
+	//variables de instancia
+	private static int [][] _MatrizActual;
+	private int [][] _MatrizAnterior;
+	public int [][] _MatrizBackup;
+
+	//constructor
 	public Matriz() {
-		_MatrizActual = new int[4][4];
+		_MatrizActual=new int[4][4];
 	}
 	
-	// Inicializa toda la matriz en cero
+	//inicializa toda la matriz en cero
 	public void IniciarMatriz() {
 		for (int fila = 0; fila < _MatrizActual.length; fila++) {//por cada filas
 			for (int columna = 0; columna < _MatrizActual.length; columna++) {//todas las columnas
-				PisarElem(fila, columna, 0);//null
+				PisarElemAnterior(fila, columna, 0);
 			}
 		}
 	}
-
-	/**-------Generacion aleatoria de Nro(s) y Posiciones------*/
-	// Numero aleatorio entre 2 y 4 (valores a sumar)
-	public int NroRandom() {
-		int nro=2;
-		Random rnd=new Random();
-		return (int) Math.pow(nro,rnd.nextInt(2)+1);
-	}
 	
-	// Numero aleatorio entre 0 y 3 (coordenadas de la matriz)
-	public int PosicionesRandom() {
-		int posiciones=4;
-		Random rnd=new Random();
-		return (int) rnd.nextInt(posiciones);//Math.floor(Math.random() * 4);
+	//deshacer al juego anterios  ////problemas con este metodo arriba abajo
+	public void regresarAtras() {
+		_MatrizBackup=_MatrizActual;
+		_MatrizActual=_MatrizAnterior;
 	}
-	
-	// Asigna posiciones aleatorias para llenado (coordenadas)
-	public void AsignaPosRandom() {
-		int fila = PosicionesRandom();
-	    int columna = PosicionesRandom();
-	    
-	    while (ObtenerElem(fila, columna)!=0) {
-	      fila = PosicionesRandom();
-	      columna = PosicionesRandom();
-	    }
-	    PisarElem(fila, columna, NroRandom());
-	}
-	/**--------------------------------------------------------*/
-	
+    
 	// Obtener elemento segun coordenada
-	public int ObtenerElem(int fila, int columna) {
+	public static int ObtenerElem(int fila, int columna) {
 		return _MatrizActual[fila][columna];
 	}
 		
 	// Pisar elemento segun coordenada
-	public void PisarElem(int fila, int columna, int elemento) {
-		this._MatrizActual[fila][columna] = elemento;
+	public static void PisarElemAnterior(int fila, int columna, int elemento) {
+		_MatrizActual[fila][columna] = elemento;
 	}
 		
-	// Obtener una fila de la matriz y colocarla en un arreglo (movimiento en bloques)
-	public int[] ObtenerFila(int fila) {
-		int[] filaAux = new int[4];
-		for (int j = 0; j < 4; j++) {
-			filaAux[j] = ObtenerElem(fila, j);
-		}
-		return filaAux;
-	}
+	/** Desplazamientos de la Matriz:
+	 * suma y desplaza los elem(s) de la Matriz 
+	 * hacia Izq/Der/Arriba/Abajo*/
 	
-	// Entrega una fila de la matriz con un bloque de elementos para ser desplazados
-	public int[] ObtenerFilaMovible(int[] fila){
-		int ElemMovibles = 0;
-		for (int i = 0; i < fila.length; i++) {
-			if (fila[i] != 0) {
-				ElemMovibles++;
+	// Apila los elementos desiguales a la Izq y suma si son ==
+	public void moverMatrizIzq() {
+		_MatrizAnterior=_MatrizActual;
+		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
+		for (int fila = 0; fila < _MatrizActual.length; fila++) {
+			int[] FilaRedimensionada = RedimensionaFilaHaciaIzq(_MatrizActual[fila]);//valores
+			for (int columna = 0; columna < _MatrizActual.length; columna++) {
+				if (columna < FilaRedimensionada.length) {//si es menos que cant elem redimencionados
+					MatrizAux[fila][columna] = FilaRedimensionada[columna];//mueve a la izq elementos
+				}
 			}
 		}
-		int TamañoDelBloque = 0;
-		int[] BloqueMovible = new int[ElemMovibles];
-		for (int i = 0; i < fila.length; i++) {
-			if (fila[i] != 0) {
-				BloqueMovible[TamañoDelBloque] = fila[i];
-				TamañoDelBloque++;
-			}
-		}
-		return BloqueMovible;
+		_MatrizActual=MatrizAux;//sobreescribe matriz
 	}
 	
-	/**------Suma y desplaza elementos Izq/Der/Arriba/Abajo--------*/
-	//Entrega un arreglo redimencionado con la suma hacia la Izq
-	public int[] SumaFilaHaciaIzq(int[] fila) {
+	//Entrega un arreglo redimensionado con la suma hacia la Izq
+	public int[] RedimensionaFilaHaciaIzq(int[] fila) {
 		int[] filaRedimencionada = ObtenerFilaMovible(fila);
 		if (filaRedimencionada.length >= 2){//si la fila tiene 2 o mas elementos
 			for (int i = 0; i < filaRedimencionada.length - 1; i++) {//recorro hacia -->
 				if (filaRedimencionada[i] == filaRedimencionada[i + 1]) {
-					filaRedimencionada[i] = filaRedimencionada[i] * 2;
-					filaRedimencionada[i + 1] = 0;//null//i++;
+					filaRedimencionada[i] = filaRedimencionada[i] * 2;//suma
+					filaRedimencionada[i + 1] = 0;//pone en cero por Der
 				}
 			}
 		}
@@ -103,45 +71,33 @@ public class Matriz {
 		return filaRedimencionada;
 	}
 	
-	//Entrega un arreglo redimencionado con la suma hacia la Der
-	public int[] SumaFilaHaciaDer(int[] fila) {
-		int[] filaRedimencionada = ObtenerFilaMovible(fila);
-		if (filaRedimencionada.length >= 2){//si la fila tiene 2 o mas elementos
-			for (int i = filaRedimencionada.length - 1; i > 0; i--) {//recorro hacia <--
-				if (filaRedimencionada[i] == filaRedimencionada[i - 1]) {
-					filaRedimencionada[i] = filaRedimencionada[i] * 2;
-					filaRedimencionada[i - 1] = 0;//null//i--;
-				}
-			}
-		}
-		filaRedimencionada = ObtenerFilaMovible(filaRedimencionada);//redimenciona si no queda lugar libre
-		return filaRedimencionada;
-	}
 	
-	// Apila los elementos desiguales a la Izq
-	public void MoverHaciaIzq() {
-		//_MatrizAnterior = _MatrizActual;
+//	//--------------ACA PABLIN 
+//	public void moverMatrizDer() {
+//		_MatrizAnterior=_MatrizActual;
+//		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
+//		for (int fila = 0; fila < _MatrizActual.length; fila++) {
+//			int[] FilaRedimencionada = SumaFilaHaciaDer(_MatrizActual[fila]);
+//			int columnaAux = 0;
+//			for (int columna = _MatrizActual.length-1; columna>0; columna--) {
+//				if (columna>=_MatrizActual.length -FilaRedimencionada.length) {// 
+//					MatrizAux[fila][columna] =FilaRedimencionada[columnaAux];//posicion ;
+//					columnaAux++;
+//				} 
+//			}
+//		}
+//		_MatrizActual=MatrizAux;
+//	}
+	
+	// Apila los elementos desiguales a la Der y suma si son ==
+	public void moverMatrizDer() {
+		_MatrizAnterior=_MatrizActual;
 		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
 		for (int fila = 0; fila < _MatrizActual.length; fila++) {
-			int[] FilaRedimencionada = SumaFilaHaciaIzq(this._MatrizActual[fila]);//valores
-			for (int columna = 0; columna < _MatrizActual.length; columna++) {
-				if (columna < FilaRedimencionada.length) {//si tiene valor
-					MatrizAux[fila][columna] = FilaRedimencionada[columna];//mueve a la izq valores
-				}
-			}
-		}
-		this._MatrizActual = MatrizAux;
-	}
-	
-	// Apila los elementos desiguales a la Izq-----no me gusta no lo puedo hacer de otra manera(refactorizar)
-	public void MoverHaciaDer() {
-		//_MatrizAnterior = _MatrizActual;
-		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
-		for (int fila = 0; fila < _MatrizActual.length; fila++) {
-			int[] FilaRedimencionada = SumaFilaHaciaDer(_MatrizActual[fila]);
+			int[] FilaRedimencionada = RedimensionaFilaHaciaDer(_MatrizActual[fila]);
 			int columnaAux = 0;
 			for (int columna = 0; columna<_MatrizActual.length; columna++) {
-				if (columna < _MatrizActual.length - FilaRedimencionada.length) {
+				if (columna <_MatrizActual.length - FilaRedimencionada.length) {
 					MatrizAux[fila][columna] = 0;
 				} else {
 					MatrizAux[fila][columna] = FilaRedimencionada[columnaAux];//posicion
@@ -149,105 +105,97 @@ public class Matriz {
 				}
 			}
 		}
-		_MatrizActual = MatrizAux;
+		_MatrizActual=MatrizAux;
 	}
 	
-	// Apila los elementos desiguales hacia abajo moviendo la matriz 90 grados (dos veces) y moviendo a la Derecha
-	public void MoverHaciaAbajo() {
-		//mueve 90 grados la primera vez
-		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
-		_MatrizActual.toString();
-		for (int fila = 0; fila < _MatrizActual.length; fila++) {//recorre filas
-			int[] FilaActual = ObtenerFila(fila);//guarda los elementos no nulos de la fila en un arreglo
-			
-			for (int columna = 0; columna < _MatrizActual.length; columna++) {//por cada fila recorre columnas
-				if (columna < FilaActual.length) {//si la iteracion es < a la cant de elementos de la fila con valores
-					MatrizAux[columna][fila] = FilaActual[columna];//rota 
-				} else {
-					MatrizAux[columna][fila] = 0;
+	//Entrega un arreglo redimensionado con la suma hacia la Der
+	public int[] RedimensionaFilaHaciaDer(int[] fila) {
+		int[] filaRedimencionada = ObtenerFilaMovible(fila);
+		if (filaRedimencionada.length >= 2){//si la fila tiene 2 o mas elementos
+			for (int i = filaRedimencionada.length - 1; i > 0; i--) {//recorro hacia <--
+				if (filaRedimencionada[i] == filaRedimencionada[i - 1]) {//compara
+					filaRedimencionada[i] = filaRedimencionada[i] * 2;//suma los elem
+					filaRedimencionada[i - 1] = 0;//pone en cero pos Izq
 				}
 			}
 		}
-		MatrizAux.toString();
-		_MatrizActual = MatrizAux;
-		
-		//una vez que la matriz esta bolteada mueve hacia la derecha
-		MoverHaciaDer();
-		
-		//despues la coloca de forma normal
-		int[][] MatrizAux1 = new int[_MatrizActual.length][_MatrizActual.length];
-		_MatrizActual.toString();
-		for (int fila = 0; fila < _MatrizActual.length; fila++) {//recorre filas
-			int[] FilaActual = ObtenerFila(fila);//guarda los elementos no nulos de la fila en un arreglo
-			
-			for (int columna = 0; columna < _MatrizActual.length; columna++) {//por cada fila recorre columnas
-				if (columna < FilaActual.length) {//si la iteracion es < a la cant de elementos de la fila con valores
-					MatrizAux1[columna][fila] = FilaActual[columna];//rota 
-				} else {
-					MatrizAux1[columna][fila] = 0;
-				}
+		filaRedimencionada = ObtenerFilaMovible(filaRedimencionada);//redimenciona si no queda lugar libre
+		return filaRedimencionada;
+	}
+	
+	// Entrega un arreglo por fila de la matriz con elem para ser desplazados
+	public int[] ObtenerFilaMovible(int[] fila){
+		int Elemento = 0;
+		int[] BloqueMovible = new int[tamanoBloqueMovible(fila)];
+		for (int j = 0; j < fila.length; j++) {//for copiado de elem
+			if (fila[j] != 0) {
+				BloqueMovible[Elemento] = fila[j];
+				Elemento++;
 			}
 		}
-		MatrizAux1.toString();
-		_MatrizActual = MatrizAux1;
+		return BloqueMovible;
+	}
+		
+	// Entrega el tamano del arreglo Bloque de elementos a desplazar
+	public int tamanoBloqueMovible(int[] fila){
+		int BloqueTamano = 0;
+		for (int i = 0; i < fila.length; i++) {//for tamaño del arreglo
+			if (fila[i] != 0) {
+				BloqueTamano++;
+			}
+		}
+		return BloqueTamano;
 	}
 
-	// Apila los elementos desiguales hacia abajo moviendo la matriz 90 grados (dos veces) y moviendo a la Derecha	
-	public void MoverHaciaArriba() {
-	//mueve 90 grados la primera vez
+	/** la idea en este punto es rotar la matriz 90 grados a la derecha
+	 * por lo que el movimiento Abajo esta relacionado directamente con
+	 * movimiendo hacia la Derecha y el movimiento Arriba esta relacionado 
+	 * directamente con movimiendo hacia la Izquierda, luego se restablece
+	 * la matriz a su posicion original esperando algun otro movimiento*/
+	
+	// Obtener un bloque de la matriz (fila) y colocarla en un arreglo (movimiento en bloques)
+		public int[] ObtenerBloque(int indice) {
+			int[] bloqueAux = new int[_MatrizActual.length];
+			for (int j = 0; j < _MatrizActual.length; j++) {//pos de acuerdo a la matriz 4/8/16
+				bloqueAux[j] = ObtenerElem(indice,j);
+			}
+			return bloqueAux;
+		}
+	
+	// Apila los elementos hacia abajo y suma (elem ==) bolteando la matriz 90 grados
+	public void moverMatrizAbajo() {
 		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
-		_MatrizActual.toString();
-		for (int fila = 0; fila < _MatrizActual.length; fila++) {//recorre filas
-			int[] FilaActual = ObtenerFila(fila);//guarda los elementos no nulos de la fila en un arreglo
-			
-			for (int columna = 0; columna < _MatrizActual.length; columna++) {//por cada fila recorre columnas
-				if (columna < FilaActual.length) {//si la iteracion es < a la cant de elementos de la fila con valores
-					MatrizAux[columna][fila] = FilaActual[columna];//rota 
-				} else {
-					MatrizAux[columna][fila] = 0;
-				}
-			}
-		}
-		MatrizAux.toString();
-		_MatrizActual = MatrizAux;
-			
-		//una vez que la matriz esta bolteada mueve hacia la derecha
-		MoverHaciaIzq();
-				
-		//despues la coloca de forma normal
+		//_MatrizActual.toString();
+		bolteaMatriz_90_Der(MatrizAux);//boltea de lado la matriz
+		_MatrizActual=bolteaMatriz_90_Der(MatrizAux);
+		moverMatrizDer();//equivalente a mover hacia abajo
 		int[][] MatrizAux1 = new int[_MatrizActual.length][_MatrizActual.length];
-		_MatrizActual.toString();
-		for (int fila = 0; fila < _MatrizActual.length; fila++) {//recorre filas
-			int[] FilaActual = ObtenerFila(fila);//guarda los elementos no nulos de la fila en un arreglo
-					
-			for (int columna = 0; columna < _MatrizActual.length; columna++) {//por cada fila recorre columnas
-				if (columna < FilaActual.length) {//si la iteracion es < a la cant de elementos de la fila con valores
-					MatrizAux1[columna][fila] = FilaActual[columna];//rota 
-				} else {
-					MatrizAux1[columna][fila] = 0;
-				}
-			}
-		}
-		MatrizAux1.toString();
-		_MatrizActual = MatrizAux1;
+		bolteaMatriz_90_Der(MatrizAux1);//normaliza la matriz
+		_MatrizActual=bolteaMatriz_90_Der(MatrizAux1);
+	}
+
+	// Apila los elementos hacia arriba y suma (elem ==) bolteando la matriz 90 grados	
+	public void moverMatrizArriba() {
+		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
+		//_MatrizActual.toString();
+		bolteaMatriz_90_Der(MatrizAux);//boltea la matriz
+		_MatrizActual=bolteaMatriz_90_Der(MatrizAux);
+		moverMatrizIzq();//equivalente a mover hacia arriba
+		int[][] MatrizAux1 = new int[_MatrizActual.length][_MatrizActual.length];
+		bolteaMatriz_90_Der(MatrizAux1);//normaliza la matriz
+		_MatrizActual=bolteaMatriz_90_Der(MatrizAux1);
 	}
 	
-	/**-------------------------------------------------------------------------------------*/
-	
-	//representacion de la matriz	
-	  @Override
-	  public String toString() {
-		  String s = "";
-		  
-		  for (int i = 0; i < this._MatrizActual.length; i++) {
-			  for (int j = 0; j < this._MatrizActual.length; j++) {
-				  s += this._MatrizActual[i][j];
-				  s += "\t";
-			  }
-			  
-			  s += "\n";
-		  }
-		  
-		  return s;
-	  }
+	//boltea la matriz 90 grados a la derecha
+	private int[][] bolteaMatriz_90_Der(int[][] MatrizAux) {
+		for (int fila = 0; fila <_MatrizActual.length; fila++) {
+			int[] FilaActual = ObtenerBloque(fila);
+			for (int columna = 0; columna < _MatrizActual.length; columna++) {
+				if (columna < FilaActual.length) {//si la iteracion es < a la cant de elementos de la fila
+					MatrizAux[columna][fila] = FilaActual[columna];//rota 
+				}
+			}
+		}
+		return MatrizAux;
+	}
 }

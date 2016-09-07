@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import logica_negocio.Matriz;
+import logica_negocio.GeneradorRandom;
 
 public class GeneradorTablero 
 {
@@ -21,18 +22,18 @@ public class GeneradorTablero
 		frame=new JFrame();
 	}
 	
-	public JFrame creaFrameJuego(Matriz juego,JLabel[][] matrizLabels)
-	{
-		this.oirEventosTeclado(frame, juego, matrizLabels);
+	public JFrame creaFrameJuego(Matriz MatrizJuego,JLabel[][] matrizLabels){
+		
+		this.oirEventosTeclado(frame, MatrizJuego, matrizLabels);
 		this.configInicialFrameJuego(frame);
 		
-		juego.IniciarMatriz();
-		juego.AsignaPosRandom();
-		juego.AsignaPosRandom();
+		MatrizJuego.IniciarMatriz();
+		GeneradorRandom.AsignaPosRandom();
+		GeneradorRandom.AsignaPosRandom();
 
 		Border borde = BorderFactory.createLineBorder(Color.DARK_GRAY, 2);
 		
-		populaMatrizLabels(frame, juego, matrizLabels, borde);
+		populaMatrizLabels(frame, MatrizJuego, matrizLabels, borde);
 
 		
 		creaTextosDeLabels(borde);
@@ -40,14 +41,14 @@ public class GeneradorTablero
 		return frame;
 	}
 	
-	private void populaMatrizLabels(JFrame frameMatriz, Matriz juego, JLabel[][] matrizLabels, Border borde) {
+	private void populaMatrizLabels(JFrame frameMatriz, Matriz MatrizJuego, JLabel[][] matrizLabels, Border borde) {
 		for (int i = 0; i < matrizLabels.length; i++) {
 			for (int j = 0; j < matrizLabels.length; j++) {
-				int numero = juego.ObtenerElem(i, j);
+				int numero = MatrizJuego.ObtenerElem(i, j);
 				
 				// Se crean las etiquetas
 				if (numero != 0) {
-					matrizLabels[i][j] = new JLabel(String.valueOf(juego.ObtenerElem(i, j)));
+					matrizLabels[i][j] = new JLabel(String.valueOf(MatrizJuego.ObtenerElem(i, j)));
 					matrizLabels[i][j].setBackground(Color.CYAN);//.lightGray
 				} else {
 					matrizLabels[i][j] = new JLabel(String.valueOf(""));
@@ -66,34 +67,39 @@ public class GeneradorTablero
 	}
 
 	/*-- Métodos auxiliares --*/
-	private void oirEventosTeclado(JFrame frameMatriz, Matriz juego, JLabel[][] matrizJLabel) {
+	private void oirEventosTeclado(JFrame frameMatriz, Matriz MatrizJuego, JLabel[][] matrizJLabel) {
 		frameMatriz.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP:
 						frameMatriz.setTitle("Arriba");
-						juego.MoverHaciaArriba();
-						juego.AsignaPosRandom();
-						dibujarTablero(juego,matrizJLabel);
+						MatrizJuego.moverMatrizArriba();
+						GeneradorRandom.AsignaPosRandom();
+						dibujarTablero(MatrizJuego,matrizJLabel);
 						break;
 					case KeyEvent.VK_DOWN:
 						frameMatriz.setTitle("Abajo");
-						juego.MoverHaciaAbajo();
-						juego.AsignaPosRandom();
-						dibujarTablero(juego,matrizJLabel);
+						MatrizJuego.moverMatrizAbajo();
+						GeneradorRandom.AsignaPosRandom();
+						dibujarTablero(MatrizJuego,matrizJLabel);
 						break;
 					case KeyEvent.VK_LEFT:
 						frameMatriz.setTitle("Izq");
-						juego.MoverHaciaIzq();	
-						juego.AsignaPosRandom();
-						dibujarTablero(juego,matrizJLabel);
+						MatrizJuego.moverMatrizIzq();	
+						GeneradorRandom.AsignaPosRandom();
+						dibujarTablero(MatrizJuego,matrizJLabel);
 						break;
 					case KeyEvent.VK_RIGHT:
 						frameMatriz.setTitle("Der");
-						juego.MoverHaciaDer();	
-						juego.AsignaPosRandom();
-						dibujarTablero(juego,matrizJLabel);
+						MatrizJuego.moverMatrizDer();	
+						GeneradorRandom.AsignaPosRandom();
+						dibujarTablero(MatrizJuego,matrizJLabel);
+						break;
+					case KeyEvent.VK_D:
+						frame.setTitle("deshacer");
+						MatrizJuego.regresarAtras();
+						dibujarTablero(MatrizJuego,matrizJLabel);
 						break;
 					case KeyEvent.VK_ESCAPE:
 						frameMatriz.setTitle("salir");
@@ -105,7 +111,7 @@ public class GeneradorTablero
 	
 	private void configInicialFrameJuego(JFrame frameMatriz) {
 		frameMatriz.setResizable(false);
-		frameMatriz.setTitle("Matriz");
+		frameMatriz.setTitle("Juego_2048_SobreMatriz");
 		frameMatriz.setBounds(100, 100, 480, 480);
 		frameMatriz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -113,10 +119,10 @@ public class GeneradorTablero
 		frameMatriz.getContentPane().setLayout(new GridLayout(4, 4));
 	}
 	
-	public static void dibujarTablero(Matriz juego,JLabel[][] matrizJLabels) {
+	public static void dibujarTablero(Matriz MatrizJuego,JLabel[][] matrizJLabels) {
 		for (int i = 0; i < matrizJLabels.length; i++) {
 			for (int j = 0; j < matrizJLabels.length; j++) {
-				int numero = juego.ObtenerElem(i, j);
+				int numero = MatrizJuego.ObtenerElem(i, j);
 				
 				switch (numero) {
 					case 0:
