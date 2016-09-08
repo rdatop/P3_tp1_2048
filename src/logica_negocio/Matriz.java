@@ -13,7 +13,7 @@ public class Matriz {
 	}
 	
 	//inicializa toda la matriz en cero
-	public void IniciarMatriz() {
+	public void iniciarMatriz() {
 		for (int fila = 0; fila < _MatrizActual.length; fila++) {//por cada filas
 			for (int columna = 0; columna < _MatrizActual.length; columna++) {//todas las columnas
 				pisarElemAnterior(fila, columna, 0);
@@ -73,7 +73,7 @@ public class Matriz {
 	
 	
 //	//--------------ACA PABLIN 
-//	public void moverMatrizDer() {
+//	public void moverElementosDer() {
 //		_MatrizAnterior=_MatrizActual;
 //		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
 //		for (int fila = 0; fila < _MatrizActual.length; fila++) {
@@ -156,8 +156,7 @@ public class Matriz {
 	// Apila los elementos hacia abajo y suma (elem ==) bolteando la matriz 90 grados
 	public void moverElementosAbajo() {
 		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
-		
-		//bolteaMatriz_90_Der(MatrizAux);//boltea de lado la matriz
+		bolteaMatriz_90_Der(MatrizAux);//boltea de lado la matriz
 		_MatrizActual=bolteaMatriz_90_Der(MatrizAux);
 		moverElementosDer();//equivalente a mover hacia abajo
 		int[][] MatrizAux1 = new int[_MatrizActual.length][_MatrizActual.length];
@@ -168,8 +167,7 @@ public class Matriz {
 	// Apila los elementos hacia arriba y suma (elem ==) bolteando la matriz 90 grados	
 	public void moverElementosArriba() {
 		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
-		
-		//bolteaMatriz_90_Der(MatrizAux);//boltea la matriz
+		bolteaMatriz_90_Der(MatrizAux);//boltea la matriz
 		_MatrizActual=bolteaMatriz_90_Der(MatrizAux);
 		moverElementosIzq();//equivalente a mover hacia arriba
 		int[][] MatrizAux1 = new int[_MatrizActual.length][_MatrizActual.length];

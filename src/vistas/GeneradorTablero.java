@@ -27,14 +27,13 @@ public class GeneradorTablero
 		this.oirEventosTeclado(frame, MatrizJuego, matrizLabels);
 		this.configInicialFrameJuego(frame);
 		
-		MatrizJuego.IniciarMatriz();
+		MatrizJuego.iniciarMatriz();
 		GeneradorRandom.asignaPosRandom();
 		GeneradorRandom.asignaPosRandom();
 
 		Border borde = BorderFactory.createLineBorder(Color.DARK_GRAY, 2);
 		
-		populaMatrizLabels(frame,matrizLabels, borde);
-
+		populaMatrizLabels(frame,matrizLabels,borde);
 		
 		creaTextosDeLabels(borde);
 		
@@ -46,11 +45,15 @@ public class GeneradorTablero
 			for (int j = 0; j < matrizLabels.length; j++) {
 				int numero = Matriz.obtenerElem(i, j);
 				
-				// Se crean las etiquetas
+				//se crean las coordenadas iniciales con dos posibles colores
 				if (numero != 0) {
 					matrizLabels[i][j] = new JLabel(String.valueOf(Matriz.obtenerElem(i, j)));
-					matrizLabels[i][j].setBackground(Color.CYAN);//.lightGray
-				} else {
+					if(numero==2){//si es 2 celeste
+						matrizLabels[i][j].setBackground(Color.CYAN);
+					}else{//si es 4 amarillo
+						matrizLabels[i][j].setBackground(Color.YELLOW);
+					}
+				}else{
 					matrizLabels[i][j] = new JLabel(String.valueOf(""));
 				}
 				
