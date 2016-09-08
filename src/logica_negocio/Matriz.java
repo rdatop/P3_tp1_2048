@@ -16,7 +16,7 @@ public class Matriz {
 	public void IniciarMatriz() {
 		for (int fila = 0; fila < _MatrizActual.length; fila++) {//por cada filas
 			for (int columna = 0; columna < _MatrizActual.length; columna++) {//todas las columnas
-				PisarElemAnterior(fila, columna, 0);
+				pisarElemAnterior(fila, columna, 0);
 			}
 		}
 	}
@@ -28,12 +28,12 @@ public class Matriz {
 	}
     
 	// Obtener elemento segun coordenada
-	public static int ObtenerElem(int fila, int columna) {
+	public static int obtenerElem(int fila, int columna) {
 		return _MatrizActual[fila][columna];
 	}
 		
 	// Pisar elemento segun coordenada
-	public static void PisarElemAnterior(int fila, int columna, int elemento) {
+	public static void pisarElemAnterior(int fila, int columna, int elemento) {
 		_MatrizActual[fila][columna] = elemento;
 	}
 		
@@ -46,7 +46,7 @@ public class Matriz {
 		_MatrizAnterior=_MatrizActual;
 		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
 		for (int fila = 0; fila < _MatrizActual.length; fila++) {
-			int[] FilaRedimensionada = RedimensionaFilaHaciaIzq(_MatrizActual[fila]);//valores
+			int[] FilaRedimensionada = redimensionaFilaHaciaIzq(_MatrizActual[fila]);//valores
 			for (int columna = 0; columna < _MatrizActual.length; columna++) {
 				if (columna < FilaRedimensionada.length) {//si es menos que cant elem redimencionados
 					MatrizAux[fila][columna] = FilaRedimensionada[columna];//mueve a la izq elementos
@@ -57,8 +57,8 @@ public class Matriz {
 	}
 	
 	//Entrega un arreglo redimensionado con la suma hacia la Izq
-	public int[] RedimensionaFilaHaciaIzq(int[] fila) {
-		int[] filaRedimencionada = ObtenerFilaMovible(fila);
+	public int[] redimensionaFilaHaciaIzq(int[] fila) {
+		int[] filaRedimencionada = obtenerFilaMovible(fila);
 		if (filaRedimencionada.length >= 2){//si la fila tiene 2 o mas elementos
 			for (int i = 0; i < filaRedimencionada.length - 1; i++) {//recorro hacia -->
 				if (filaRedimencionada[i] == filaRedimencionada[i + 1]) {
@@ -67,7 +67,7 @@ public class Matriz {
 				}
 			}
 		}
-		filaRedimencionada = ObtenerFilaMovible(filaRedimencionada);//redimenciona si no queda lugar libre
+		filaRedimencionada = obtenerFilaMovible(filaRedimencionada);//redimenciona si no queda lugar libre
 		return filaRedimencionada;
 	}
 	
@@ -94,7 +94,7 @@ public class Matriz {
 		_MatrizAnterior=_MatrizActual;
 		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
 		for (int fila = 0; fila < _MatrizActual.length; fila++) {
-			int[] FilaRedimencionada = RedimensionaFilaHaciaDer(_MatrizActual[fila]);
+			int[] FilaRedimencionada = redimensionaFilaHaciaDer(_MatrizActual[fila]);
 			int columnaAux = 0;
 			for (int columna = 0; columna<_MatrizActual.length; columna++) {
 				if (columna <_MatrizActual.length - FilaRedimencionada.length) {
@@ -109,8 +109,8 @@ public class Matriz {
 	}
 	
 	//Entrega un arreglo redimensionado con la suma hacia la Der
-	public int[] RedimensionaFilaHaciaDer(int[] fila) {
-		int[] filaRedimencionada = ObtenerFilaMovible(fila);
+	public int[] redimensionaFilaHaciaDer(int[] fila) {
+		int[] filaRedimencionada = obtenerFilaMovible(fila);
 		if (filaRedimencionada.length >= 2){//si la fila tiene 2 o mas elementos
 			for (int i = filaRedimencionada.length - 1; i > 0; i--) {//recorro hacia <--
 				if (filaRedimencionada[i] == filaRedimencionada[i - 1]) {//compara
@@ -119,12 +119,12 @@ public class Matriz {
 				}
 			}
 		}
-		filaRedimencionada = ObtenerFilaMovible(filaRedimencionada);//redimenciona si no queda lugar libre
+		filaRedimencionada = obtenerFilaMovible(filaRedimencionada);//redimenciona si no queda lugar libre
 		return filaRedimencionada;
 	}
 	
 	// Entrega un arreglo por fila de la matriz con elem para ser desplazados
-	public int[] ObtenerFilaMovible(int[] fila){
+	public int[] obtenerFilaMovible(int[] fila){
 		int Elemento = 0;
 		int[] BloqueMovible = new int[tamanoBloqueMovible(fila)];
 		for (int j = 0; j < fila.length; j++) {//for copiado de elem
@@ -154,10 +154,10 @@ public class Matriz {
 	 * la matriz a su posicion original esperando algun otro movimiento*/
 	
 	// Obtener un bloque de la matriz (fila) y colocarla en un arreglo (movimiento en bloques)
-		public int[] ObtenerBloque(int indice) {
+		public int[] obtenerBloque(int indice) {
 			int[] bloqueAux = new int[_MatrizActual.length];
 			for (int j = 0; j < _MatrizActual.length; j++) {//pos de acuerdo a la matriz 4/8/16
-				bloqueAux[j] = ObtenerElem(indice,j);
+				bloqueAux[j] = obtenerElem(indice,j);
 			}
 			return bloqueAux;
 		}
@@ -189,7 +189,7 @@ public class Matriz {
 	//boltea la matriz 90 grados a la derecha
 	private int[][] bolteaMatriz_90_Der(int[][] MatrizAux) {
 		for (int fila = 0; fila <_MatrizActual.length; fila++) {
-			int[] FilaActual = ObtenerBloque(fila);
+			int[] FilaActual = obtenerBloque(fila);
 			for (int columna = 0; columna < _MatrizActual.length; columna++) {
 				if (columna < FilaActual.length) {//si la iteracion es < a la cant de elementos de la fila
 					MatrizAux[columna][fila] = FilaActual[columna];//rota 

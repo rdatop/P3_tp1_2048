@@ -28,8 +28,8 @@ public class GeneradorTablero
 		this.configInicialFrameJuego(frame);
 		
 		MatrizJuego.IniciarMatriz();
-		GeneradorRandom.AsignaPosRandom();
-		GeneradorRandom.AsignaPosRandom();
+		GeneradorRandom.asignaPosRandom();
+		GeneradorRandom.asignaPosRandom();
 
 		Border borde = BorderFactory.createLineBorder(Color.DARK_GRAY, 2);
 		
@@ -44,11 +44,11 @@ public class GeneradorTablero
 	private void populaMatrizLabels(JFrame frameMatriz,JLabel[][] matrizLabels, Border borde) {
 		for (int i = 0; i < matrizLabels.length; i++) {
 			for (int j = 0; j < matrizLabels.length; j++) {
-				int numero = Matriz.ObtenerElem(i, j);
+				int numero = Matriz.obtenerElem(i, j);
 				
 				// Se crean las etiquetas
 				if (numero != 0) {
-					matrizLabels[i][j] = new JLabel(String.valueOf(Matriz.ObtenerElem(i, j)));
+					matrizLabels[i][j] = new JLabel(String.valueOf(Matriz.obtenerElem(i, j)));
 					matrizLabels[i][j].setBackground(Color.CYAN);//.lightGray
 				} else {
 					matrizLabels[i][j] = new JLabel(String.valueOf(""));
@@ -75,25 +75,25 @@ public class GeneradorTablero
 					case KeyEvent.VK_UP:
 						frameMatriz.setTitle("Arriba");
 						MatrizJuego.moverMatrizArriba();
-						GeneradorRandom.AsignaPosRandom();
+						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
 						break;
 					case KeyEvent.VK_DOWN:
 						frameMatriz.setTitle("Abajo");
 						MatrizJuego.moverMatrizAbajo();
-						GeneradorRandom.AsignaPosRandom();
+						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
 						break;
 					case KeyEvent.VK_LEFT:
 						frameMatriz.setTitle("Izq");
 						MatrizJuego.moverMatrizIzq();	
-						GeneradorRandom.AsignaPosRandom();
+						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
 						break;
 					case KeyEvent.VK_RIGHT:
 						frameMatriz.setTitle("Der");
 						MatrizJuego.moverMatrizDer();	
-						GeneradorRandom.AsignaPosRandom();
+						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
 						break;
 					case KeyEvent.VK_D:
@@ -122,7 +122,7 @@ public class GeneradorTablero
 	public static void dibujarTablero(JLabel[][] matrizJLabels) {
 		for (int i = 0; i < matrizJLabels.length; i++) {
 			for (int j = 0; j < matrizJLabels.length; j++) {
-				int numero = Matriz.ObtenerElem(i, j);
+				int numero = Matriz.obtenerElem(i, j);
 				
 				switch (numero) {
 					case 0:
