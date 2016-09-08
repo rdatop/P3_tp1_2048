@@ -6,12 +6,15 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+
 import logica_negocio.Matriz;
 
 public class Main {
@@ -42,10 +45,22 @@ public class Main {
 	/**
 	 * Create the application.
 	 */
+	
+	/*manejo de LOOKANDFEEL
+	* iniciamos con el cambio de interfaz
+	* eso se hace desde el UIManager con un try/catch*/
 	public Main() {
+		try{
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+			//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			//UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+		}catch(Exception e){
+			e.printStackTrace();
+		}		
 		initialize();
 	}
-
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -67,22 +82,22 @@ public class Main {
 		panelInicial.add(lblBienvenidoA);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(155, 96, 197, 20);
+		txtNombre.setBounds(134, 72, 197, 34);
 		panelInicial.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(99, 99, 46, 14);
+		lblNombre.setBounds(78, 82, 46, 14);
 		panelInicial.add(lblNombre);
 		
 		JLabel lblNombreObligatorio = new JLabel("Debe ingresar un nombre");
 		lblNombreObligatorio.setForeground(Color.RED);
-		lblNombreObligatorio.setBounds(99, 134, 253, 14);
+		lblNombreObligatorio.setBounds(144, 129, 151, 14);
 		lblNombreObligatorio.setVisible(false);
 		panelInicial.add(lblNombreObligatorio);
 		
 		JButton btnJugar = new JButton("Jugar");
-		btnJugar.setBounds(189, 156, 89, 23);
+		btnJugar.setBounds(170, 164, 89, 23);
 		panelInicial.add(btnJugar);
 		
 		btnJugar.addActionListener(new ActionListener() {
