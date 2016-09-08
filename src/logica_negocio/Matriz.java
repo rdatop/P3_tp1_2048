@@ -42,7 +42,7 @@ public class Matriz {
 	 * hacia Izq/Der/Arriba/Abajo*/
 	
 	// Apila los elementos desiguales a la Izq y suma si son ==
-	public void moverMatrizIzq() {
+	public void moverElementosIzq() {
 		_MatrizAnterior=_MatrizActual;
 		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
 		for (int fila = 0; fila < _MatrizActual.length; fila++) {
@@ -90,7 +90,7 @@ public class Matriz {
 //	}
 	
 	// Apila los elementos desiguales a la Der y suma si son ==
-	public void moverMatrizDer() {
+	public void moverElementosDer() {
 		_MatrizAnterior=_MatrizActual;
 		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
 		for (int fila = 0; fila < _MatrizActual.length; fila++) {
@@ -153,34 +153,25 @@ public class Matriz {
 	 * directamente con movimiendo hacia la Izquierda, luego se restablece
 	 * la matriz a su posicion original esperando algun otro movimiento*/
 	
-	// Obtener un bloque de la matriz (fila) y colocarla en un arreglo (movimiento en bloques)
-		public int[] obtenerBloque(int indice) {
-			int[] bloqueAux = new int[_MatrizActual.length];
-			for (int j = 0; j < _MatrizActual.length; j++) {//pos de acuerdo a la matriz 4/8/16
-				bloqueAux[j] = obtenerElem(indice,j);
-			}
-			return bloqueAux;
-		}
-	
 	// Apila los elementos hacia abajo y suma (elem ==) bolteando la matriz 90 grados
-	public void moverMatrizAbajo() {
+	public void moverElementosAbajo() {
 		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
-		//_MatrizActual.toString();
-		bolteaMatriz_90_Der(MatrizAux);//boltea de lado la matriz
+		
+		//bolteaMatriz_90_Der(MatrizAux);//boltea de lado la matriz
 		_MatrizActual=bolteaMatriz_90_Der(MatrizAux);
-		moverMatrizDer();//equivalente a mover hacia abajo
+		moverElementosDer();//equivalente a mover hacia abajo
 		int[][] MatrizAux1 = new int[_MatrizActual.length][_MatrizActual.length];
 		bolteaMatriz_90_Der(MatrizAux1);//normaliza la matriz
 		_MatrizActual=bolteaMatriz_90_Der(MatrizAux1);
 	}
 
 	// Apila los elementos hacia arriba y suma (elem ==) bolteando la matriz 90 grados	
-	public void moverMatrizArriba() {
+	public void moverElementosArriba() {
 		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
-		//_MatrizActual.toString();
-		bolteaMatriz_90_Der(MatrizAux);//boltea la matriz
+		
+		//bolteaMatriz_90_Der(MatrizAux);//boltea la matriz
 		_MatrizActual=bolteaMatriz_90_Der(MatrizAux);
-		moverMatrizIzq();//equivalente a mover hacia arriba
+		moverElementosIzq();//equivalente a mover hacia arriba
 		int[][] MatrizAux1 = new int[_MatrizActual.length][_MatrizActual.length];
 		bolteaMatriz_90_Der(MatrizAux1);//normaliza la matriz
 		_MatrizActual=bolteaMatriz_90_Der(MatrizAux1);
@@ -197,5 +188,14 @@ public class Matriz {
 			}
 		}
 		return MatrizAux;
+	}
+	
+	// Obtener un bloque de la matriz (fila) y colocarla en un arreglo (movimiento en bloques)
+	public int[] obtenerBloque(int indice) {
+		int[] bloqueAux = new int[_MatrizActual.length];
+		for (int j = 0; j < _MatrizActual.length; j++) {//pos de acuerdo a la matriz 4/8/16
+			bloqueAux[j] = obtenerElem(indice,j);
+		}
+		return bloqueAux;
 	}
 }
