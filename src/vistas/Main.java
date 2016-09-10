@@ -90,23 +90,13 @@ public class Main {
 		
 		JLabel lblNombreObligatorio = new JLabel("Debe ingresar un nombre");
 		lblNombreObligatorio.setForeground(Color.RED);
-		lblNombreObligatorio.setBounds(144, 129, 151, 14);
+		lblNombreObligatorio.setBounds(170, 129, 151, 14);
 		lblNombreObligatorio.setVisible(false);
 		panelInicial.add(lblNombreObligatorio);
 		
 		JButton btnJugar = new JButton("Jugar");
-		btnJugar.setBounds(170, 164, 89, 23);
+		btnJugar.setBounds(197, 154, 89, 23);
 		panelInicial.add(btnJugar);
-		
-		JButton btnReglas = new JButton("Ver reglas");
-		btnReglas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				VentanaReglas ventanaReglas=new VentanaReglas();
-				ventanaReglas.setVisible(true);
-			}
-		});
-		btnReglas.setBounds(170, 198, 89, 23);
-		panelInicial.add(btnReglas);
 		
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){

@@ -18,7 +18,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 @SuppressWarnings("serial")
-public class VentanaReglas extends JFrame {//extiende de reglas
+public class VentanaReglas extends JFrame {
 
 	private JPanel contentPane;
 	private JButton btnNewButton;
@@ -67,7 +67,7 @@ public class VentanaReglas extends JFrame {//extiende de reglas
 		btnNewButton.setBounds(196, 271, 89, 23);
 		contentPane.add(btnNewButton);
 
-		JLabel lblcmoJugar = new JLabel("\u00BFC\u00F3mo jugar 10.000?");
+		JLabel lblcmoJugar = new JLabel("\u00BFC\u00F3mo jugar 2048?");
 		lblcmoJugar.setForeground(new Color(255, 51, 0));
 		lblcmoJugar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblcmoJugar.setBounds(163, 5, 155, 20);
@@ -80,7 +80,9 @@ public class VentanaReglas extends JFrame {//extiende de reglas
 		
 		TextArea textArea = new TextArea();
 		textArea.setBounds(0, 0, 462, 247);
-		textArea.setText("El primer jugador lanza los seis dados. \r\nLuego de este lance, el jugador debe seleccionar qu\u00E9 dados se  guardan para sumar \r\ny lanzar los restantes, para intentar obtener la mayor cantidad de puntos.\r\n\r\nLos puentos se pueden sumar segun las siguientes combinaciones de dados:\r\n\r\n1. Cualquier dado que muestre un 1 vale 100 puntos.\r\n2. Cualquier dado que muestre un 5 vale 50 puntos.\r\n3. Tres dados iguales valen 100 veces el n\u00FAmero de los dados \r\n(por ejemplo, 3+3+3 = 300 puntos); excepto el tr\u00EDo de unos, que vale 1000 puntos.\r\n4. Cuatro dados iguales valen 200 veces el n\u00FAmero de los dados \r\n(por ejemplo, 4 +4 + 4 = 400 puntos mientras que 4 + 4 + 4 + 4 = 800 puntos).\r\n5. Tres pares de dados iguales valen 1.000 puntos.\r\n6. Una escalera de 5 dados (1 + 2 + 3 + 4 + 5 o 2 + 3 + 4 + 5 + 6) vale 500 puntos.\r\n7. Una escalera de 6 dados (1 + 2 + 3 + 4 + 5 + 6) vale 1.500 puntos.\r\n\r\nUna vez lanzados los dados, el jugador encierra algunos de los dados y vuelve a \r\nlanzar los restantes. Para esto de deben seleccionar los dados desde el checkbox \r\ny presionando el bot\u00F3n sumar\r\n\r\nSi al volver a lanzar los dados no obtiene m\u00E1s puntos que antes, entonces pierde \r\ntodos los puntos y el turno pasa al siguiente jugador. \r\n\r\nSi al volver a lanzar los dados se obtienen m\u00E1s puntos que en el lanzamiento anterior, \r\nel jugador puede dar por terminado su turno (y sumar los puntos obtenidos) o \r\nencerrar algunos de los dados lanzados y volver a lanzar. \r\n\r\nEl juego contin\u00FAa por turnos hasta que alg\u00FAn jugador llega a 10.000 puntos. \r\nEse jugador es el ganador.");
+		textArea.setText("*Utilizando las flechas arriba,abajo,izquierda y derecha se mueve el tablero"
+				+ "\r\n*Con la letra D se deshace la última jugada."
+				+ "\r\n*El objetivo del juego es llegar a los 2048 puntos.");
 		textArea.setMaximumSize(new Dimension(42767, 42767));
 		textArea.setEditable(false);
 		panel.add(textArea);
