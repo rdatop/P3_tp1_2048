@@ -52,9 +52,6 @@ public class Main {
 	public Main() {
 		try{
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-			//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-			//UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
 		}catch(Exception e){
 			e.printStackTrace();
 		}		
@@ -100,6 +97,16 @@ public class Main {
 		JButton btnJugar = new JButton("Jugar");
 		btnJugar.setBounds(170, 164, 89, 23);
 		panelInicial.add(btnJugar);
+		
+		JButton btnReglas = new JButton("Ver reglas");
+		btnReglas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaReglas ventanaReglas=new VentanaReglas();
+				ventanaReglas.setVisible(true);
+			}
+		});
+		btnReglas.setBounds(170, 198, 89, 23);
+		panelInicial.add(btnReglas);
 		
 		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){
