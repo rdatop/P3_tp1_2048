@@ -2,17 +2,16 @@ package logica_negocio;
 
 public class Matriz {
 
-	//variables de instancia
+	// Variables de instancia
 	private static int [][] _MatrizActual;
-	private int [][] _MatrizAnterior;
-	public int [][] _MatrizBackup;
-
-	//constructor
+	public static int [][] _MatrizAnterior;
+	
+	// Constructor
 	public Matriz() {
 		_MatrizActual=new int[4][4];
 	}
 	
-	//inicializa toda la matriz en cero
+	// Inicializa toda la matriz en cero
 	public void iniciarMatriz() {
 		for (int fila = 0; fila < _MatrizActual.length; fila++) {//por cada filas
 			for (int columna = 0; columna < _MatrizActual.length; columna++) {//todas las columnas
@@ -21,12 +20,15 @@ public class Matriz {
 		}
 	}
 	
-	//deshacer al juego anterios  ////problemas con este metodo arriba abajo
+	// Entrega una version segura de la Matriz para deshacer
+	public static int[][] getMatrizActual(){
+		return _MatrizActual;
+	}
+	// Deshacer al juego anterios  
 	public void regresarAtras() {
-		_MatrizBackup=_MatrizActual;
 		_MatrizActual=_MatrizAnterior;
 	}
-    
+	
 	// Obtener elemento segun coordenada
 	public static int obtenerElem(int fila, int columna) {
 		return _MatrizActual[fila][columna];
@@ -45,7 +47,6 @@ public class Matriz {
 	
 	// Apila los elementos desiguales a la Izq y suma si son ==
 	public void moverElementosIzq() {
-		_MatrizAnterior=_MatrizActual;
 		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
 		for (int fila = 0; fila < _MatrizActual.length; fila++) {
 			int[] FilaRedimensionada = redimensionaFilaHaciaIzq(_MatrizActual[fila]);
@@ -139,7 +140,7 @@ public class Matriz {
 		bolteaMatriz_90_Der();//regreso matriz
 	}
 		
-	//boltea la matriz 90 grados a la derecha
+	// Boltea la matriz 90 grados a la derecha
 	private void bolteaMatriz_90_Der() {
 		int[][] MatrizAux = new int[_MatrizActual.length][_MatrizActual.length];
 		for (int fila = 0; fila <_MatrizActual.length; fila++) {

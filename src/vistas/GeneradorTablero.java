@@ -75,35 +75,44 @@ public class GeneradorTablero
 			@Override
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
-					case KeyEvent.VK_UP:
-						frameMatriz.setTitle("Arriba");
-						MatrizJuego.moverElementosArriba();
+				
+					case KeyEvent.VK_LEFT:
+						Matriz._MatrizAnterior=Matriz.getMatrizActual();
+						frameMatriz.setTitle("Izq");
+						MatrizJuego.moverElementosIzq();	
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
-						break;
+						break;	
+						
+					case KeyEvent.VK_RIGHT:
+						Matriz._MatrizAnterior=Matriz.getMatrizActual();
+						frameMatriz.setTitle("Der");
+						MatrizJuego.moverElementosDer();	
+						GeneradorRandom.asignaPosRandom();
+						dibujarTablero(matrizJLabel);
+						break;	
+						
 					case KeyEvent.VK_DOWN:
+						Matriz._MatrizAnterior=Matriz.getMatrizActual();
 						frameMatriz.setTitle("Abajo");
 						MatrizJuego.moverElementosAbajo();
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
 						break;
-					case KeyEvent.VK_LEFT:
-						frameMatriz.setTitle("Izq");
-						MatrizJuego.moverElementosIzq();	
+					case KeyEvent.VK_UP:
+						Matriz._MatrizAnterior=Matriz.getMatrizActual();
+						frameMatriz.setTitle("Arriba");
+						MatrizJuego.moverElementosArriba();
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
 						break;
-					case KeyEvent.VK_RIGHT:
-						frameMatriz.setTitle("Der");
-						MatrizJuego.moverElementosDer();	
-						GeneradorRandom.asignaPosRandom();
-						dibujarTablero(matrizJLabel);
-						break;
+				
 					case KeyEvent.VK_D:
 						frame.setTitle("deshacer");
 						MatrizJuego.regresarAtras();
 						dibujarTablero(matrizJLabel);
 						break;
+						
 					case KeyEvent.VK_ESCAPE:
 						frameMatriz.setTitle("salir");
 						break;
