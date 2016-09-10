@@ -67,7 +67,8 @@ public class Main {
 	private void initialize() {
 		nombreJugador="";
 		frameInicial = new JFrame();
-		frameInicial.setBounds(100, 100, 450, 300);
+		frameInicial.setBounds(400, 100, 450, 300);
+		frameInicial.setTitle("Powered by - @pablorecagno_and_@agustinrivas");
 		frameInicial.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameInicial.getContentPane().setLayout(new CardLayout(0, 0));
 		

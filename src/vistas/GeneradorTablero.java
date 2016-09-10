@@ -13,6 +13,7 @@ import javax.swing.border.Border;
 
 import logica_negocio.Matriz;
 import logica_negocio.GeneradorRandom;
+import java.awt.Font;
 
 public class GeneradorTablero 
 {
@@ -20,6 +21,8 @@ public class GeneradorTablero
 	private JFrame frame;
 	public GeneradorTablero(){
 		frame=new JFrame();
+		frame.getContentPane().setForeground(Color.LIGHT_GRAY.brighter());
+		frame.getContentPane().setFont(new Font("Arial Black", Font.PLAIN, 57));
 	}
 	
 	public JFrame creaFrameJuego(Matriz MatrizJuego,JLabel[][] matrizLabels){
@@ -31,7 +34,7 @@ public class GeneradorTablero
 		GeneradorRandom.asignaPosRandom();
 		GeneradorRandom.asignaPosRandom();
 
-		Border borde = BorderFactory.createLineBorder(Color.DARK_GRAY, 2);
+		Border borde = BorderFactory.createLineBorder(Color.LIGHT_GRAY.darker(), 4);
 		
 		populaMatrizLabels(frame,matrizLabels,borde);
 		
@@ -49,9 +52,9 @@ public class GeneradorTablero
 				if (numero != 0) {
 					matrizLabels[i][j] = new JLabel(String.valueOf(Matriz.obtenerElem(i, j)));
 					if(numero==2){//si es 2 celeste
-						matrizLabels[i][j].setBackground(Color.CYAN);
+						matrizLabels[i][j].setBackground(Color.PINK.brighter());
 					}else{//si es 4 amarillo
-						matrizLabels[i][j].setBackground(Color.YELLOW);
+						matrizLabels[i][j].setBackground(Color.PINK);
 					}
 				}else{
 					matrizLabels[i][j] = new JLabel(String.valueOf(""));
@@ -121,49 +124,74 @@ public class GeneradorTablero
 		});
 	}
 	
+	// Configuracion inicial de frame
 	private void configInicialFrameJuego(JFrame frameMatriz) {
 		frameMatriz.setResizable(false);
 		frameMatriz.setTitle("Juego_2048_SobreMatriz");
-		frameMatriz.setBounds(100, 100, 480, 480);
+		frameMatriz.setBounds(400, 100, 480, 480);
 		frameMatriz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// Se crea una matriz 4x4 para acomodar las etiquetas
 		frameMatriz.getContentPane().setLayout(new GridLayout(4, 4));
 	}
-	
+	// Se dibuja el tablero
 	public static void dibujarTablero(JLabel[][] matrizJLabels) {
-		for (int i = 0; i < matrizJLabels.length; i++) {
-			for (int j = 0; j < matrizJLabels.length; j++) {
-				int numero = Matriz.obtenerElem(i, j);
+		for (int fila = 0; fila < matrizJLabels.length; fila++) {
+			for (int colum = 0; colum < matrizJLabels.length; colum++) {
+				int numero = Matriz.obtenerElem(fila, colum);
 				
 				switch (numero) {
 					case 0:
-						matrizJLabels[i][j].setText("");
-						matrizJLabels[i][j].setBackground(Color.LIGHT_GRAY);						
+						matrizJLabels[fila][colum].setText("");
+						matrizJLabels[fila][colum].setBackground(Color.LIGHT_GRAY);						
 						break;
 					case 2:
-						matrizJLabels[i][j].setText(String.valueOf(numero));
-						matrizJLabels[i][j].setBackground(Color.CYAN);
+						matrizJLabels[fila][colum].setText(String.valueOf(numero));
+						matrizJLabels[fila][colum].setBackground(Color.PINK.brighter());//CYAN
 						break;
 					case 4:
-						matrizJLabels[i][j].setText(String.valueOf(numero));
-						matrizJLabels[i][j].setBackground(Color.YELLOW);
+						matrizJLabels[fila][colum].setText(String.valueOf(numero));
+						matrizJLabels[fila][colum].setBackground(Color.PINK);//
 						break;
 					case 8:
-						matrizJLabels[i][j].setText(String.valueOf(numero));
-						matrizJLabels[i][j].setBackground(Color.ORANGE);
+						matrizJLabels[fila][colum].setText(String.valueOf(numero));
+						matrizJLabels[fila][colum].setBackground(Color.PINK.darker());//
 						break;
 					case 16:
-						matrizJLabels[i][j].setText(String.valueOf(numero));
-						matrizJLabels[i][j].setBackground(Color.pink);
+						matrizJLabels[fila][colum].setText(String.valueOf(numero));
+						matrizJLabels[fila][colum].setBackground(Color.YELLOW.brighter());//
 						break;
 					case 32:
-						matrizJLabels[i][j].setText(String.valueOf(numero));
-						matrizJLabels[i][j].setBackground(Color.red);
+						matrizJLabels[fila][colum].setText(String.valueOf(numero));
+						matrizJLabels[fila][colum].setBackground(Color.ORANGE);
+						break;
+					case 64:
+						matrizJLabels[fila][colum].setText(String.valueOf(numero));
+						matrizJLabels[fila][colum].setBackground(Color.ORANGE.darker());
+						break;
+					case 128:
+						matrizJLabels[fila][colum].setText(String.valueOf(numero));
+						matrizJLabels[fila][colum].setBackground(Color.CYAN.brighter());
+						break;                            
+					case 256:
+						matrizJLabels[fila][colum].setText(String.valueOf(numero));
+						matrizJLabels[fila][colum].setBackground(Color.YELLOW);
+						break;
+					case 512:
+						matrizJLabels[fila][colum].setText(String.valueOf(numero));
+						matrizJLabels[fila][colum].setBackground(Color.YELLOW.darker());
+						break;
+					case 1024:
+						matrizJLabels[fila][colum].setText(String.valueOf(numero));
+						matrizJLabels[fila][colum].setBackground(Color.RED.brighter());
+						break;
+					case 2048:
+						matrizJLabels[fila][colum].setText(String.valueOf(numero));
+						matrizJLabels[fila][colum].setBackground(Color.RED);
 						break;
 					default:
-						matrizJLabels[i][j].setText(String.valueOf(numero));
-						matrizJLabels[i][j].setBackground(Color.DARK_GRAY);						
+						matrizJLabels[fila][colum].setText(String.valueOf(numero));
+						matrizJLabels[fila][colum].setBackground(Color.DARK_GRAY);						
 						break;
 				}
 			}
@@ -225,24 +253,25 @@ public class GeneradorTablero
 		lbl15.setBorder(borde);
 		lbl16.setBorder(borde);
 
-		// Se agregan las etiquetas al formulario lo comente porque si no se despelota
-		/*
-		frmMatriz.getContentPane().add(lbl1);
-		frmMatriz.getContentPane().add(lbl2);
-		frmMatriz.getContentPane().add(lbl3);
-		frmMatriz.getContentPane().add(lbl4);
-		frmMatriz.getContentPane().add(lbl5);
-		frmMatriz.getContentPane().add(lbl6);
-		frmMatriz.getContentPane().add(lbl7);
-		frmMatriz.getContentPane().add(lbl8);
-		frmMatriz.getContentPane().add(lbl9);
-		frmMatriz.getContentPane().add(lbl10);
-		frmMatriz.getContentPane().add(lbl11);
-		frmMatriz.getContentPane().add(lbl12);
-		frmMatriz.getContentPane().add(lbl13);
-		frmMatriz.getContentPane().add(lbl14);
-		frmMatriz.getContentPane().add(lbl15);
-		frmMatriz.getContentPane().add(lbl16);
-		*/
+		/* Se agregan las etiquetas al formulario 
+		 * comentado para correcta visualizacion*/
+			
+//		frame.getContentPane().add(lbl1);
+//		frame.getContentPane().add(lbl2);
+//		frame.getContentPane().add(lbl3);
+//		frame.getContentPane().add(lbl4);
+//		frame.getContentPane().add(lbl5);
+//		frame.getContentPane().add(lbl6);
+//		frame.getContentPane().add(lbl7);
+//		frame.getContentPane().add(lbl8);
+//		frame.getContentPane().add(lbl9);
+//		frame.getContentPane().add(lbl10);
+//		frame.getContentPane().add(lbl11);
+//		frame.getContentPane().add(lbl12);
+//		frame.getContentPane().add(lbl13);
+//		frame.getContentPane().add(lbl14);
+//		frame.getContentPane().add(lbl15);
+//		frame.getContentPane().add(lbl16);
+		
 	}
 }
