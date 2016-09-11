@@ -107,7 +107,9 @@ public class Main {
 					lblNombreObligatorio.setVisible(false);
 					nombreJugador=txtNombre.getText();
 					frameInicial.setVisible(false);
-					frameJuego=new GeneradorTablero().creaFrameJuego(new Matriz(),new JLabel[4][4]);
+					GeneradorTablero generador=new GeneradorTablero();
+					
+					frameJuego=generador.creaFrameJuego(new Matriz(),new JLabel[4][4]);
 					frameJuego.setVisible(true);
 				}
 			}
