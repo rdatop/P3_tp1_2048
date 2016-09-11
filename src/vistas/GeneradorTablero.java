@@ -4,42 +4,36 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-
+import java.awt.Font;
 import logica_negocio.Matriz;
 import logica_negocio.GeneradorRandom;
-import java.awt.Font;
 
 public class GeneradorTablero 
 {
-	
 	private JFrame frame;
 	public GeneradorTablero(){
 		frame=new JFrame();
 		frame.getContentPane().setForeground(Color.LIGHT_GRAY.brighter());
 		frame.getContentPane().setFont(new Font("Arial Black", Font.PLAIN, 57));
+		seteaScorePuntaje(0);
 	}
 	
 	public JFrame creaFrameJuego(Matriz MatrizJuego,JLabel[][] matrizLabels){
 		
-		this.oirEventosTeclado(frame, MatrizJuego, matrizLabels);
-		this.configInicialFrameJuego(frame);
+		oirEventosTeclado(frame, MatrizJuego, matrizLabels);
+		configInicialFrameJuego(frame);
 		
 		MatrizJuego.iniciarMatriz();
 		GeneradorRandom.asignaPosRandom();
 		GeneradorRandom.asignaPosRandom();
-
 		Border borde = BorderFactory.createLineBorder(Color.LIGHT_GRAY.darker(), 4);
-		
 		populaMatrizLabels(frame,matrizLabels,borde);
-		
 		creaTextosDeLabels(borde);
-		
 		return frame;
 	}
 	
@@ -73,47 +67,53 @@ public class GeneradorTablero
 	}
 
 	/*-- Métodos auxiliares --*/
-	private void oirEventosTeclado(JFrame frameMatriz, Matriz MatrizJuego, JLabel[][] matrizJLabel) {
+	private void oirEventosTeclado(JFrame frameMatriz, Matriz matrizJuego, JLabel[][] matrizJLabel) {
 		frameMatriz.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
+				
 				switch (e.getKeyCode()) {
 				
 					case KeyEvent.VK_LEFT:
 						Matriz._matrizAnterior=Matriz.getMatrizActual();
 						frameMatriz.setTitle("Izq");
-						MatrizJuego.moverElementosIzq();	
+						matrizJuego.moverElementosIzq();	
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
+						seteaScorePuntaje(matrizJuego.getPuntaje());
 						break;	
 						
 					case KeyEvent.VK_RIGHT:
 						Matriz._matrizAnterior=Matriz.getMatrizActual();
 						frameMatriz.setTitle("Der");
-						MatrizJuego.moverElementosDer();	
+						matrizJuego.moverElementosDer();	
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
+						seteaScorePuntaje(matrizJuego.getPuntaje());
 						break;	
 						
 					case KeyEvent.VK_DOWN:
 						Matriz._matrizAnterior=Matriz.getMatrizActual();
 						frameMatriz.setTitle("Abajo");
-						MatrizJuego.moverElementosAbajo();
+						matrizJuego.moverElementosAbajo();
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
+						seteaScorePuntaje(matrizJuego.getPuntaje());
 						break;
 					case KeyEvent.VK_UP:
 						Matriz._matrizAnterior=Matriz.getMatrizActual();
 						frameMatriz.setTitle("Arriba");
-						MatrizJuego.moverElementosArriba();
+						matrizJuego.moverElementosArriba();
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
+						seteaScorePuntaje(matrizJuego.getPuntaje());
 						break;
 				
 					case KeyEvent.VK_D:
 						frame.setTitle("deshacer");
-						MatrizJuego.regresarAtras();
+						matrizJuego.regresarAtras();
 						dibujarTablero(matrizJLabel);
+						System.out.println(matrizJuego.getPuntaje());
 						break;
 						
 					case KeyEvent.VK_ESCAPE:
@@ -121,13 +121,15 @@ public class GeneradorTablero
 						break;
 				}
 			}
+			
 		});
 	}
 	
 	// Configuracion inicial de frame
 	private void configInicialFrameJuego(JFrame frameMatriz) {
 		frameMatriz.setResizable(false);
-		frameMatriz.setTitle("Juego_2048_SobreMatriz");
+		//frameMatriz.setTitle("Juego_2048_SobreMatriz");
+		seteaScorePuntaje(0);
 		frameMatriz.setBounds(400, 100, 480, 480);
 		frameMatriz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -252,26 +254,10 @@ public class GeneradorTablero
 		lbl14.setBorder(borde);
 		lbl15.setBorder(borde);
 		lbl16.setBorder(borde);
-
-		/* Se agregan las etiquetas al formulario 
-		 * comentado para correcta visualizacion*/
-			
-//		frame.getContentPane().add(lbl1);
-//		frame.getContentPane().add(lbl2);
-//		frame.getContentPane().add(lbl3);
-//		frame.getContentPane().add(lbl4);
-//		frame.getContentPane().add(lbl5);
-//		frame.getContentPane().add(lbl6);
-//		frame.getContentPane().add(lbl7);
-//		frame.getContentPane().add(lbl8);
-//		frame.getContentPane().add(lbl9);
-//		frame.getContentPane().add(lbl10);
-//		frame.getContentPane().add(lbl11);
-//		frame.getContentPane().add(lbl12);
-//		frame.getContentPane().add(lbl13);
-//		frame.getContentPane().add(lbl14);
-//		frame.getContentPane().add(lbl15);
-//		frame.getContentPane().add(lbl16);
-		
+	}
+	
+	private void seteaScorePuntaje(int puntaje){//setea el valor del puntaje
+		//en el marco del frame
+		frame.setTitle("Puntaje: "+puntaje);
 	}
 }

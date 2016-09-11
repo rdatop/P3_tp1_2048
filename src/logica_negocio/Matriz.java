@@ -69,7 +69,6 @@ public class Matriz {
 				if (filaRedimencionada[i] == filaRedimencionada[i + 1]) {
 					filaRedimencionada[i] = filaRedimencionada[i] * 2;//suma
 					setPuntaje(filaRedimencionada[i]);
-					System.out.println(getPuntaje());
 					filaRedimencionada[i + 1] = 0;//pone en cero por Der
 				}
 			}
