@@ -23,7 +23,6 @@ public class Main {
 	private JFrame frameJuego;
 	private JPanel panelInicial;
 	private JTextField txtNombre;
-	@SuppressWarnings("unused")
 	private String nombreJugador;
 
 	/**
@@ -107,8 +106,7 @@ public class Main {
 					lblNombreObligatorio.setVisible(false);
 					nombreJugador=txtNombre.getText();
 					frameInicial.setVisible(false);
-					GeneradorTablero generador=new GeneradorTablero();
-					
+					GeneradorTablero generador=new GeneradorTablero(nombreJugador);
 					frameJuego=generador.creaFrameJuego(new Matriz(),new JLabel[4][4]);
 					frameJuego.setVisible(true);
 				}

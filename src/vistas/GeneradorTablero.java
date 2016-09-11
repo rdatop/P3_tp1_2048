@@ -16,11 +16,13 @@ import logica_negocio.GeneradorRandom;
 public class GeneradorTablero 
 {
 	private JFrame frame;
-	public GeneradorTablero(){
+	private String nombreJugador;
+	public GeneradorTablero(String jugador){
 		frame=new JFrame();
 		frame.getContentPane().setForeground(Color.LIGHT_GRAY.brighter());
 		frame.getContentPane().setFont(new Font("Arial Black", Font.PLAIN, 57));
 		seteaDatosPartida(0);
+		nombreJugador=jugador;
 	}
 	
 	public JFrame creaFrameJuego(Matriz MatrizJuego,JLabel[][] matrizLabels){
@@ -257,6 +259,6 @@ public class GeneradorTablero
 	
 	private void seteaDatosPartida(int puntaje){//setea el valor del puntaje
 		//en el marco del frame
-		frame.setTitle("Puntaje: "+puntaje);
+		frame.setTitle("Puntaje: "+puntaje+" - Jugador: "+nombreJugador);
 	}
 }
