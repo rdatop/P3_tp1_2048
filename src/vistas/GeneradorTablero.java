@@ -80,7 +80,7 @@ public class GeneradorTablero
 				switch (e.getKeyCode()) {
 				
 					case KeyEvent.VK_LEFT:
-						Matriz._MatrizAnterior=Matriz.getMatrizActual();
+						Matriz._matrizAnterior=Matriz.getMatrizActual();
 						frameMatriz.setTitle("Izq");
 						MatrizJuego.moverElementosIzq();	
 						GeneradorRandom.asignaPosRandom();
@@ -88,7 +88,7 @@ public class GeneradorTablero
 						break;	
 						
 					case KeyEvent.VK_RIGHT:
-						Matriz._MatrizAnterior=Matriz.getMatrizActual();
+						Matriz._matrizAnterior=Matriz.getMatrizActual();
 						frameMatriz.setTitle("Der");
 						MatrizJuego.moverElementosDer();	
 						GeneradorRandom.asignaPosRandom();
@@ -96,14 +96,14 @@ public class GeneradorTablero
 						break;	
 						
 					case KeyEvent.VK_DOWN:
-						Matriz._MatrizAnterior=Matriz.getMatrizActual();
+						Matriz._matrizAnterior=Matriz.getMatrizActual();
 						frameMatriz.setTitle("Abajo");
 						MatrizJuego.moverElementosAbajo();
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
 						break;
 					case KeyEvent.VK_UP:
-						Matriz._MatrizAnterior=Matriz.getMatrizActual();
+						Matriz._matrizAnterior=Matriz.getMatrizActual();
 						frameMatriz.setTitle("Arriba");
 						MatrizJuego.moverElementosArriba();
 						GeneradorRandom.asignaPosRandom();
