@@ -5,13 +5,13 @@ public class Matriz {
 	// Variables de instancia
 	public static int [][] _matrizAnterior;
 	private static int [][] _matrizActual;
-	private int _puntaje;
+	private int _puntajeActual;
 	private int _puntajeAnterior;
 	
 	// Constructor
 	public Matriz() {
 		_matrizActual=new int[4][4];
-		_puntaje=0;
+		_puntajeActual=0;
 		_puntajeAnterior=0;
 	}
 	
@@ -179,15 +179,15 @@ public class Matriz {
 	}
 	
 	public int getPuntajeActual(){//retorna el puntaje acumulado
-		return _puntaje;
+		return _puntajeActual;
 	}
 	
 	private void sumaPuntajeActual(int puntos){//suma puntos al valor
 		//del puntaje actual
-		_puntaje+=puntos;
+		_puntajeActual+=puntos;
 	}
 	private void setPuntajeActual(int puntos){//setea el valor
 		//del puntaje(sin hacer sumas como el método sumaPuntajeActual)
-		_puntaje=puntos;
+		_puntajeActual=puntos;
 	}
 }
