@@ -6,11 +6,13 @@ public class Matriz {
 	public static int [][] _matrizAnterior;
 	private static int [][] _matrizActual;
 	private int _puntaje;
+	private int _puntajeAnterior;
 	
 	// Constructor
 	public Matriz() {
 		_matrizActual=new int[4][4];
 		_puntaje=0;
+		_puntajeAnterior=0;
 	}
 	
 	// Inicializa toda la matriz en cero
@@ -29,6 +31,7 @@ public class Matriz {
 	// Deshacer al juego anterios  
 	public void regresarAtras() {
 		_matrizActual=_matrizAnterior;
+		setPuntajeActual(getPuntajeAnterior());
 	}
 	
 	// Obtener elemento segun coordenada
@@ -68,7 +71,8 @@ public class Matriz {
 			for (int i = 0; i < filaRedimencionada.length - 1; i++) {//recorro hacia -->
 				if (filaRedimencionada[i] == filaRedimencionada[i + 1]) {
 					filaRedimencionada[i] = filaRedimencionada[i] * 2;//suma
-					setPuntaje(filaRedimencionada[i]);
+					setPuntajeAnterior(getPuntajeActual());
+					sumaPuntajeActual(filaRedimencionada[i]);
 					filaRedimencionada[i + 1] = 0;//pone en cero por Der
 				}
 			}
@@ -166,11 +170,24 @@ public class Matriz {
 		return bloqueAux;
 	}
 	
-	public int getPuntaje(){//retorna el puntaje acumulado
+	public int getPuntajeAnterior(){//retorna el puntaje anterior
+		return _puntajeAnterior;
+	}
+	
+	private void setPuntajeAnterior(int puntos){//setea el valor del puntaje anterior
+		_puntajeAnterior=puntos;
+	}
+	
+	public int getPuntajeActual(){//retorna el puntaje acumulado
 		return _puntaje;
 	}
 	
-	private void setPuntaje(int puntos){//setea el valor del puntaje
+	private void sumaPuntajeActual(int puntos){//suma puntos al valor
+		//del puntaje actual
 		_puntaje+=puntos;
+	}
+	private void setPuntajeActual(int puntos){//setea el valor
+		//del puntaje(sin hacer sumas como el método sumaPuntajeActual)
+		_puntaje=puntos;
 	}
 }

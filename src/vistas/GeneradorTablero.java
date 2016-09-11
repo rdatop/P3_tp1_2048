@@ -20,7 +20,7 @@ public class GeneradorTablero
 		frame=new JFrame();
 		frame.getContentPane().setForeground(Color.LIGHT_GRAY.brighter());
 		frame.getContentPane().setFont(new Font("Arial Black", Font.PLAIN, 57));
-		seteaScorePuntaje(0);
+		seteaDatosPartida(0);
 	}
 	
 	public JFrame creaFrameJuego(Matriz MatrizJuego,JLabel[][] matrizLabels){
@@ -80,7 +80,7 @@ public class GeneradorTablero
 						matrizJuego.moverElementosIzq();	
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
-						seteaScorePuntaje(matrizJuego.getPuntaje());
+						seteaDatosPartida(matrizJuego.getPuntajeActual());
 						break;	
 						
 					case KeyEvent.VK_RIGHT:
@@ -89,7 +89,7 @@ public class GeneradorTablero
 						matrizJuego.moverElementosDer();	
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
-						seteaScorePuntaje(matrizJuego.getPuntaje());
+						seteaDatosPartida(matrizJuego.getPuntajeActual());
 						break;	
 						
 					case KeyEvent.VK_DOWN:
@@ -98,7 +98,7 @@ public class GeneradorTablero
 						matrizJuego.moverElementosAbajo();
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
-						seteaScorePuntaje(matrizJuego.getPuntaje());
+						seteaDatosPartida(matrizJuego.getPuntajeActual());
 						break;
 					case KeyEvent.VK_UP:
 						Matriz._matrizAnterior=Matriz.getMatrizActual();
@@ -106,14 +106,13 @@ public class GeneradorTablero
 						matrizJuego.moverElementosArriba();
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
-						seteaScorePuntaje(matrizJuego.getPuntaje());
+						seteaDatosPartida(matrizJuego.getPuntajeActual());
 						break;
 				
 					case KeyEvent.VK_D:
-						frame.setTitle("deshacer");
 						matrizJuego.regresarAtras();
 						dibujarTablero(matrizJLabel);
-						System.out.println(matrizJuego.getPuntaje());
+						seteaDatosPartida(matrizJuego.getPuntajeActual());
 						break;
 						
 					case KeyEvent.VK_ESCAPE:
@@ -129,7 +128,7 @@ public class GeneradorTablero
 	private void configInicialFrameJuego(JFrame frameMatriz) {
 		frameMatriz.setResizable(false);
 		//frameMatriz.setTitle("Juego_2048_SobreMatriz");
-		seteaScorePuntaje(0);
+		seteaDatosPartida(0);
 		frameMatriz.setBounds(400, 100, 480, 480);
 		frameMatriz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -256,7 +255,7 @@ public class GeneradorTablero
 		lbl16.setBorder(borde);
 	}
 	
-	private void seteaScorePuntaje(int puntaje){//setea el valor del puntaje
+	private void seteaDatosPartida(int puntaje){//setea el valor del puntaje
 		//en el marco del frame
 		frame.setTitle("Puntaje: "+puntaje);
 	}
