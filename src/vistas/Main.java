@@ -19,12 +19,12 @@ import logica_negocio.Matriz;
 
 public class Main {
 
-	private JFrame frameInicial;
+	static JFrame frameInicial;/////////////////////////////////////////private
 	private JFrame frameJuego;
 	private JPanel panelInicial;
 	private JTextField txtNombre;
 	private String nombreJugador;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -53,7 +53,7 @@ public class Main {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
 		}catch(Exception e){
 			e.printStackTrace();
-		}		
+		}
 		initialize();
 	}
 	

@@ -8,7 +8,7 @@ public class Matriz {
 	
 	private int _puntajeActual;
 	private int _puntajeAnterior;
-	
+		
 	// Constructor
 	public Matriz() {
 		_matrizActual=new int[4][4];
@@ -171,6 +171,17 @@ public class Matriz {
 		}
 		return bloqueAux;
 	}
+	
+	// Matriz completa retorna true si la matriz se lleno por completo
+	public static boolean matrizCompleta(){
+		boolean ret=true;
+		for (int i = 0; i < _matrizActual.length; i++) {
+			for (int j = 0; j < _matrizActual.length; j++) {
+				ret=ret&&_matrizActual[i][j]!=0;
+			}	
+		}
+		return ret;
+	}	
 	
 	/** Sector de puntajes*/
 	// Setea el valor del puntaje(sin hacer sumas como el método sumaPuntajeActual)
