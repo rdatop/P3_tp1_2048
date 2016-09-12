@@ -13,9 +13,11 @@ import java.awt.Font;
 import logica_negocio.Matriz;
 import logica_negocio.GeneradorRandom;
 
+import vistas.Main;
+
 public class GeneradorTablero 
 {
-	private JFrame frame;
+	static JFrame frame;////////////////////////////////////////////// tube q poner static
 	private String nombreJugador;
 	public GeneradorTablero(String jugador){
 		frame=new JFrame();
@@ -70,15 +72,15 @@ public class GeneradorTablero
 
 	/*-- Métodos auxiliares --*/
 	private void oirEventosTeclado(JFrame frameMatriz, Matriz matrizJuego, JLabel[][] matrizJLabel) {
+
 		frameMatriz.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				
 				switch (e.getKeyCode()) {
 				
 					case KeyEvent.VK_LEFT:
+						reiniciarJuego();
 						Matriz._matrizAnterior=Matriz.getMatrizActual();
-						frameMatriz.setTitle("Izq");
 						matrizJuego.moverElementosIzq();	
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
@@ -86,8 +88,8 @@ public class GeneradorTablero
 						break;	
 						
 					case KeyEvent.VK_RIGHT:
+						reiniciarJuego();
 						Matriz._matrizAnterior=Matriz.getMatrizActual();
-						frameMatriz.setTitle("Der");
 						matrizJuego.moverElementosDer();	
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
@@ -95,16 +97,17 @@ public class GeneradorTablero
 						break;	
 						
 					case KeyEvent.VK_DOWN:
+						reiniciarJuego();
 						Matriz._matrizAnterior=Matriz.getMatrizActual();
-						frameMatriz.setTitle("Abajo");
 						matrizJuego.moverElementosAbajo();
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
 						seteaDatosPartida(matrizJuego.getPuntajeActual());
 						break;
+						
 					case KeyEvent.VK_UP:
+						reiniciarJuego();
 						Matriz._matrizAnterior=Matriz.getMatrizActual();
-						frameMatriz.setTitle("Arriba");
 						matrizJuego.moverElementosArriba();
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
@@ -112,13 +115,17 @@ public class GeneradorTablero
 						break;
 				
 					case KeyEvent.VK_D:
+						reiniciarJuego();
 						matrizJuego.regresarAtras();
 						dibujarTablero(matrizJLabel);
 						seteaDatosPartida(matrizJuego.getPuntajeActual());
 						break;
-						
+													
 					case KeyEvent.VK_ESCAPE:
+						reiniciarJuego();
 						frameMatriz.setTitle("salir");
+						frameMatriz.setVisible(false);/////quita la matriz
+						Main.frameInicial.setVisible(true);//////e inicia la presentacion inicial
 						break;
 				}
 			}
@@ -126,17 +133,24 @@ public class GeneradorTablero
 		});
 	}
 	
+	// Reinicia el juego en caso que la matriz este completa
+	public void reiniciarJuego(){
+		if(Matriz.matrizCompleta()==true){
+		frame.setVisible(false);/////quita la matriz
+		Main.frameInicial.setVisible(true);//////e inicia la presentacion inicial
+		}
+	}
+	
 	// Configuracion inicial de frame
 	private void configInicialFrameJuego(JFrame frameMatriz) {
 		frameMatriz.setResizable(false);
-		//frameMatriz.setTitle("Juego_2048_SobreMatriz");
 		seteaDatosPartida(0);
 		frameMatriz.setBounds(400, 100, 480, 480);
 		frameMatriz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		// Se crea una matriz 4x4 para acomodar las etiquetas
 		frameMatriz.getContentPane().setLayout(new GridLayout(4, 4));
 	}
+	
 	// Se dibuja el tablero
 	public static void dibujarTablero(JLabel[][] matrizJLabels) {
 		for (int fila = 0; fila < matrizJLabels.length; fila++) {
@@ -257,8 +271,8 @@ public class GeneradorTablero
 		lbl16.setBorder(borde);
 	}
 	
-	private void seteaDatosPartida(int puntaje){//setea el valor del puntaje
-		//en el marco del frame
+	// Muestra el valor del puntaje en el marco del frame
+	private void seteaDatosPartida(int puntaje){
 		frame.setTitle("Puntaje: "+puntaje+" - Jugador: "+nombreJugador);
 	}
 }
