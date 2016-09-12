@@ -13,32 +13,33 @@ import java.awt.Font;
 import logica_negocio.Matriz;
 import logica_negocio.GeneradorRandom;
 
-import vistas.Main;
-
 public class GeneradorTablero 
 {
-	static JFrame frame;////////////////////////////////////////////// tube q poner static
+	private JFrame frameTablero;
+	private JFrame frameInicial;
 	private String nombreJugador;
-	public GeneradorTablero(String jugador){
-		frame=new JFrame();
-		frame.getContentPane().setForeground(Color.LIGHT_GRAY.brighter());
-		frame.getContentPane().setFont(new Font("Arial Black", Font.PLAIN, 57));
+	
+	public GeneradorTablero(String jugador,JFrame frameInicio){
+		frameTablero=new JFrame();
+		frameTablero.getContentPane().setForeground(Color.LIGHT_GRAY.brighter());
+		frameTablero.getContentPane().setFont(new Font("Arial Black", Font.PLAIN, 57));
+		frameInicial=frameInicio;
 		seteaDatosPartida(0);
 		nombreJugador=jugador;
 	}
 	
 	public JFrame creaFrameJuego(Matriz MatrizJuego,JLabel[][] matrizLabels){
 		
-		oirEventosTeclado(frame, MatrizJuego, matrizLabels);
-		configInicialFrameJuego(frame);
+		oirEventosTeclado(frameTablero, MatrizJuego, matrizLabels);
+		configInicialFrameJuego(frameTablero);
 		
 		MatrizJuego.iniciarMatriz();
 		GeneradorRandom.asignaPosRandom();
 		GeneradorRandom.asignaPosRandom();
 		Border borde = BorderFactory.createLineBorder(Color.LIGHT_GRAY.darker(), 4);
-		populaMatrizLabels(frame,matrizLabels,borde);
+		populaMatrizLabels(frameTablero,matrizLabels,borde);
 		creaTextosDeLabels(borde);
-		return frame;
+		return frameTablero;
 	}
 	
 	private void populaMatrizLabels(JFrame frameMatriz,JLabel[][] matrizLabels, Border borde) {
@@ -125,7 +126,7 @@ public class GeneradorTablero
 						reiniciarJuego();
 						frameMatriz.setTitle("salir");
 						frameMatriz.setVisible(false);/////quita la matriz
-						Main.frameInicial.setVisible(true);//////e inicia la presentacion inicial
+						frameInicial.setVisible(true);//////e inicia la presentacion inicial
 						break;
 				}
 			}
@@ -136,8 +137,8 @@ public class GeneradorTablero
 	// Reinicia el juego en caso que la matriz este completa
 	public void reiniciarJuego(){
 		if(Matriz.matrizCompleta()==true){
-		frame.setVisible(false);/////quita la matriz
-		Main.frameInicial.setVisible(true);//////e inicia la presentacion inicial
+			frameTablero.setVisible(false);/////quita la matriz
+			frameInicial.setVisible(true);//////e inicia la presentacion inicial
 		}
 	}
 	
@@ -273,6 +274,6 @@ public class GeneradorTablero
 	
 	// Muestra el valor del puntaje en el marco del frame
 	private void seteaDatosPartida(int puntaje){
-		frame.setTitle("Puntaje: "+puntaje+" - Jugador: "+nombreJugador);
+		frameTablero.setTitle("Puntaje: "+puntaje+" - Jugador: "+nombreJugador);
 	}
 }

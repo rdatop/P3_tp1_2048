@@ -19,7 +19,7 @@ import logica_negocio.Matriz;
 
 public class Main {
 
-	static JFrame frameInicial;/////////////////////////////////////////private
+	private JFrame frameInicial;
 	private JFrame frameJuego;
 	private JPanel panelInicial;
 	private JTextField txtNombre;
@@ -30,6 +30,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			
 			public void run() {
 				try {
 					Main window = new Main();
@@ -116,7 +117,7 @@ public class Main {
 					lblNombreObligatorio.setVisible(false);
 					nombreJugador=txtNombre.getText();
 					frameInicial.setVisible(false);
-					GeneradorTablero generador=new GeneradorTablero(nombreJugador);
+					GeneradorTablero generador=new GeneradorTablero(nombreJugador,frameInicial);
 					frameJuego=generador.creaFrameJuego(new Matriz(),new JLabel[4][4]);
 					frameJuego.setVisible(true);
 				}
