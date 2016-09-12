@@ -31,8 +31,4 @@ public class GeneradorRandom {
 		Random rnd=new Random();
 		return (int) Math.pow(nro,rnd.nextInt(2)+1);
 	}
-		
-	
-		
-	
 }
