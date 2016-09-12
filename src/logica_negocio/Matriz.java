@@ -3,8 +3,9 @@ package logica_negocio;
 public class Matriz {
 
 	// Variables de instancia
-	public static int [][] _matrizAnterior;
 	private static int [][] _matrizActual;
+	public static int [][] _matrizAnterior;
+	
 	private int _puntajeActual;
 	private int _puntajeAnterior;
 	
@@ -28,6 +29,7 @@ public class Matriz {
 	public static int[][] getMatrizActual(){
 		return _matrizActual;
 	}
+	
 	// Deshacer al juego anterios  
 	public void regresarAtras() {
 		_matrizActual=_matrizAnterior;
@@ -135,20 +137,20 @@ public class Matriz {
 
 	// Apila los elementos hacia abajo y suma (elem ==) bolteando la matriz 90 grados
 	public void moverElementosAbajo() {
-		bolteaMatriz_90_Der();//bolteo matriz
+		volteaMatriz_90_Der();//volteo matriz
 		moverElementosDer();//equivalente a mover hacia abajo
-		bolteaMatriz_90_Der();//regreso matriz
+		volteaMatriz_90_Der();//regreso matriz
 	}
 
 	// Apila los elementos hacia arriba y suma (elem ==) bolteando la matriz 90 grados	
 	public void moverElementosArriba() {
-		bolteaMatriz_90_Der();//bolteo matriz
+		volteaMatriz_90_Der();//volteo matriz
 		moverElementosIzq();//equivalente a mover hacia arriba
-		bolteaMatriz_90_Der();//regreso matriz
+		volteaMatriz_90_Der();//regreso matriz
 	}
 		
 	// Boltea la matriz 90 grados a la derecha
-	private void bolteaMatriz_90_Der() {
+	private void volteaMatriz_90_Der() {
 		int[][] MatrizAux = new int[_matrizActual.length][_matrizActual.length];
 		for (int fila = 0; fila <_matrizActual.length; fila++) {
 			int[] FilaActual = obtenerBloque(fila);
@@ -170,24 +172,25 @@ public class Matriz {
 		return bloqueAux;
 	}
 	
-	public int getPuntajeAnterior(){//retorna el puntaje anterior
-		return _puntajeAnterior;
+	/** Sector de puntajes*/
+	// Setea el valor del puntaje(sin hacer sumas como el método sumaPuntajeActual)
+	private void setPuntajeActual(int puntos){
+		_puntajeActual=puntos;
 	}
-	
-	private void setPuntajeAnterior(int puntos){//setea el valor del puntaje anterior
-		_puntajeAnterior=puntos;
-	}
-	
-	public int getPuntajeActual(){//retorna el puntaje acumulado
-		return _puntajeActual;
-	}
-	
-	private void sumaPuntajeActual(int puntos){//suma puntos al valor
-		//del puntaje actual
+	// Suma los puntajes de acuerdo transcurra el juego
+	private void sumaPuntajeActual(int puntos){
 		_puntajeActual+=puntos;
 	}
-	private void setPuntajeActual(int puntos){//setea el valor
-		//del puntaje(sin hacer sumas como el método sumaPuntajeActual)
-		_puntajeActual=puntos;
+	// Retorna el puntaje acumulado
+	public int getPuntajeActual(){
+		return _puntajeActual;
+	}
+	// Retorna el puntaje anterior
+	public int getPuntajeAnterior(){
+		return _puntajeAnterior;
+	}
+	// Setea el valor del puntaje anterior
+	private void setPuntajeAnterior(int puntos){
+		_puntajeAnterior=puntos;
 	}
 }

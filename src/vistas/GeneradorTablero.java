@@ -150,19 +150,19 @@ public class GeneradorTablero
 						break;
 					case 2:
 						matrizJLabels[fila][colum].setText(String.valueOf(numero));
-						matrizJLabels[fila][colum].setBackground(Color.PINK.brighter());//CYAN
+						matrizJLabels[fila][colum].setBackground(Color.PINK.brighter());
 						break;
 					case 4:
 						matrizJLabels[fila][colum].setText(String.valueOf(numero));
-						matrizJLabels[fila][colum].setBackground(Color.PINK);//
+						matrizJLabels[fila][colum].setBackground(Color.PINK);
 						break;
 					case 8:
 						matrizJLabels[fila][colum].setText(String.valueOf(numero));
-						matrizJLabels[fila][colum].setBackground(Color.PINK.darker());//
+						matrizJLabels[fila][colum].setBackground(Color.PINK.darker());
 						break;
 					case 16:
 						matrizJLabels[fila][colum].setText(String.valueOf(numero));
-						matrizJLabels[fila][colum].setBackground(Color.YELLOW.brighter());//
+						matrizJLabels[fila][colum].setBackground(Color.YELLOW.brighter());
 						break;
 					case 32:
 						matrizJLabels[fila][colum].setText(String.valueOf(numero));
