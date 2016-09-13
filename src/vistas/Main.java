@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import logica_negocio.Matriz;
+
 public class Main {
 
 	private JFrame frameInicial;
@@ -114,7 +116,8 @@ public class Main {
 					lblNombreObligatorio.setVisible(false);
 					nombreJugador=txtNombre.getText();
 					frameInicial.setVisible(false);
-					frameJuego=InstanciadorFrameTablero.instanciaTablero(nombreJugador);
+					GeneradorTablero generador=new GeneradorTablero(nombreJugador, frameInicial);
+					frameJuego=generador.creaFrameJuego(new Matriz(),new JLabel[4][4]);
 					frameJuego.setVisible(true);
 				}
 			}
