@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import java.awt.Font;
@@ -136,9 +137,17 @@ public class GeneradorTablero
 	
 	// Reinicia el juego en caso que la matriz este completa
 	public void reiniciarJuego(){
+		
 		if(Matriz.matrizCompleta()==true){
-			frameTablero.setVisible(false);/////quita la matriz
-			frameInicial.setVisible(true);//////e inicia la presentacion inicial
+			//if(sigue jugando)->reinicio tablero ;else-> muestro puntajes
+			if(dialogReintentar()){//sí el usuario decide reintentar
+				frameTablero.setVisible(false);/////quita la matriz
+				frameInicial.setVisible(true);//////e inicia la presentacion inicial
+			}else{//el usuario decidió no reintentar y es llevado a la ventana
+			///de puntajes
+				System.out.println("Pronto mostraré puntajes :P");
+			}
+			
 		}
 	}
 	
@@ -275,5 +284,19 @@ public class GeneradorTablero
 	// Muestra el valor del puntaje en el marco del frame
 	private void seteaDatosPartida(int puntaje){
 		frameTablero.setTitle("Puntaje: "+puntaje+" - Jugador: "+nombreJugador);
+	}
+	
+	private boolean dialogReintentar(){//muestra un modal preguntandole
+		//al usuario sí quiere reintentar
+		String mensaje = "Desea reintentar?";
+	    String titulo = "Game Over";
+	    // display the JOptionPane showConfirmDialog
+	    int respuesta = JOptionPane.showConfirmDialog(null, mensaje, titulo, JOptionPane.YES_NO_OPTION);
+	    if (respuesta == JOptionPane.YES_OPTION)
+	    {
+	      return true;
+	    }
+	    
+	    return false;
 	}
 }
