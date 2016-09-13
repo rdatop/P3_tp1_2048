@@ -8,14 +8,16 @@ import modelo.Puntaje;
 
 public class GeneradorJTable {
 
+	// Creamos el Modelo de la tabla con los datos anteriores
 	public JTable generaJTable(){
-		//creamos el Modelo de la tabla con los datos anteriores
+		
 		DefaultTableModel dtm= new DefaultTableModel(new Object[0][0],nombreDeColumnas());
 		JTable tablaPuntajes=new JTable(dtm);
 		populaTableModel(dtm);
 		return tablaPuntajes; 
 	}
 	
+	// Llenado de tabla
 	public void populaTableModel(DefaultTableModel dtm){
 		try{
 			DAOPuntajes dao=new DAOPuntajes("puntajes.json");
@@ -29,7 +31,8 @@ public class GeneradorJTable {
 		}
 	}
 	
-	public String[] nombreDeColumnas(){//array de nombres de columnas
+	//array de nombres de columnas
+	public String[] nombreDeColumnas(){
 		String[] columnas={"Nombre usuario","Puntaje"};
 		return columnas;
 	}	

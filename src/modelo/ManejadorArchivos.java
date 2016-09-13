@@ -7,16 +7,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class ManejadorArchivos{
-	public static boolean escribirGuardarArchivo(String filename,String content)throws IOException
-	{		
+	
+	// Escribir guardar archivo
+	public static boolean escribirGuardarArchivo(String filename,String content)throws IOException{		
 		PrintWriter writer = new PrintWriter(filename, "UTF-8");
 		writer.print(content);
 		writer.close();
 		return true;
 	}
 	
-	public static String leerArchivo(String fileName) throws IOException
-	{
+	// Leer archivo
+	public static String leerArchivo(String fileName) throws IOException{
 		FileReader reader = new FileReader(fileName);
         BufferedReader bufferedReader = new BufferedReader(reader);
         String contenido=bufferedReader.readLine();
@@ -24,8 +25,8 @@ public class ManejadorArchivos{
         return contenido;
 	}
 	
-	public static boolean borrarArchivo(String nombreArchivo)
-	{
+	// Borrar archivo
+	public static boolean borrarArchivo(String nombreArchivo){
 		File archivo=new File(nombreArchivo);
 		return archivo.delete();
 	}

@@ -9,10 +9,12 @@ import java.util.ArrayList;
 
 public class DAOPuntajes {
 
+	//variables de instancia
 	private Gson gson;
 	private String nombreArchivo;
 	private ArrayList<Puntaje> listaPuntajes;
 	
+	// Constructor
 	public DAOPuntajes(String nombreArchivo)throws IOException
 	{
 		this.gson=new Gson();
@@ -20,9 +22,8 @@ public class DAOPuntajes {
 		this.listaPuntajes=this.desserializaJson(this.nombreArchivo);
 	}
 	
-	public boolean agregarPuntaje(Puntaje puntaje)//agrega un puntaje a la lista
-	//de puntajes y lo registra en un archivo json
-	{
+	// Agrega un puntaje a la lista de puntajes y lo registra en un archivo json
+	public boolean agregarPuntaje(Puntaje puntaje){
 		try {
 		
 			this.listaPuntajes.add(puntaje);
@@ -32,20 +33,17 @@ public class DAOPuntajes {
 			ManejadorArchivos.escribirGuardarArchivo(this.nombreArchivo,puntajesJson);
 			
 			return true;
-		}
-		catch (Exception excepcion) {
+		}catch (Exception excepcion) {
 			return false;
 		}	
 	}
 	
-	public ArrayList<Puntaje> obtenerPuntajes()//devuelve lista de puntajes y los 
-	//usuarios que los obtuvieron
-	{
+	//devuelve lista de puntajes y los usuarios que los obtuvieron
+	public ArrayList<Puntaje> obtenerPuntajes(){
 		return this.listaPuntajes;
 	}
 	
-	public ArrayList<Puntaje> desserializaJson(String nombreArchivo)throws IOException
-	{
+	public ArrayList<Puntaje> desserializaJson(String nombreArchivo)throws IOException{
 		String json=ManejadorArchivos.leerArchivo(nombreArchivo);
 		
 		Type collectionType=new TypeToken<ArrayList<Puntaje>>(){}.getType();

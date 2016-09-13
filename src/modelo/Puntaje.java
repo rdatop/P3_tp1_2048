@@ -2,14 +2,18 @@ package modelo;
 
 public class Puntaje {
 
+	//variables de instancia
 	private String nombreUsuario;
 	private int puntaje;
 	
+	// Constructor
 	public Puntaje(String nombreUsuario,int puntaje)
 	{
 		this.nombreUsuario=nombreUsuario;
 		this.puntaje=puntaje;
 	}
+	
+	// Getter y Setter
 	public String getNombreUsuario()
 	{
 		return this.nombreUsuario;

@@ -7,6 +7,7 @@ import java.awt.event.*;
 
 @SuppressWarnings("serial")
 public class VentanaPuntajes extends JFrame {
+	
 	public VentanaPuntajes() {
 		GeneradorJTable generador=new GeneradorJTable();
 		//se crea la Tabla con el modelo DefaultTableModel
@@ -16,7 +17,7 @@ public class VentanaPuntajes extends JFrame {
 		//Creamos un JscrollPane y le agregamos la JTable
 		JScrollPane scrollPane = new JScrollPane(table);
 		//Agregamos el JScrollPane al contenedor
-		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		getContentPane().add(scrollPane, BorderLayout.NORTH);
 		//manejamos la salida
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
