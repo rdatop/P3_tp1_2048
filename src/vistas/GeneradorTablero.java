@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,6 +14,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import java.awt.Font;
 import logica_negocio.Matriz;
+import modelo.DAOPuntajes;
+import modelo.Puntaje;
 import logica_negocio.GeneradorRandom;
 
 public class GeneradorTablero{
@@ -119,23 +123,27 @@ public class GeneradorTablero{
 						break;
 													
 					case KeyEvent.VK_ESCAPE:
-//						reiniciarJuego();
-//						frameMatriz.setTitle("salir");
-//						frameMatriz.setVisible(false);/////quita la matriz
-//						frameInicial.setVisible(true);//////e inicia la presentacion inicial
 						if(confirmacionDialog("Salir","Desea salir?")){
 							System.exit(0);
 						}
 						break;
 				}
 			}
-			
 		});
 	}
 	
 	// Reinicia el juego en caso que la matriz este completa
 	public void reiniciarJuego(){
 		if(Matriz.matrizCompleta()==true){//si la matriz está completa
+			//guardo el puntaje
+			try{
+				DAOPuntajes dao=new DAOPuntajes("puntajes.json");
+				dao.agregarPuntaje(new Puntaje(nombreJugador,1337));
+			}catch(IOException excepcion){
+				excepcion.printStackTrace();
+			}
+			
+			
 			if(confirmacionDialog("Game Over","Reintentar?")){//sí el usuario decide reintentar
 				frameTablero.setVisible(false);/////quita la matriz
 				frameInicial.setVisible(true);//////e inicia la presentacion inicial
