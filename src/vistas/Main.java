@@ -13,11 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-
 import logica_negocio.Matriz;
 
 public class Main {
-
+	
+	//variables de instancia
 	private JFrame frameInicial;
 	private JFrame frameJuego;
 	private JPanel panelInicial;
@@ -29,7 +29,6 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			
 			public void run() {
 				try {
 					Main window = new Main();
@@ -45,9 +44,7 @@ public class Main {
 	 * Create the application.
 	 */
 	
-	/*manejo de LOOKANDFEEL
-	* iniciamos con el cambio de interfaz
-	* eso se hace desde el UIManager con un try/catch*/
+	// Manejo de LOOKANDFEEL
 	public Main() {
 		try{
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");

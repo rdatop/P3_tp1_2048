@@ -19,6 +19,7 @@ import java.awt.Dimension;
 @SuppressWarnings("serial")
 public class VentanaReglas extends JFrame {
 
+	//variables de instancia
 	private JPanel contentPane;
 	private JButton btnNewButton;
 
@@ -39,7 +40,7 @@ public class VentanaReglas extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Constructor create the frame.
 	 */
 	public VentanaReglas() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -69,7 +70,7 @@ public class VentanaReglas extends JFrame {
 		JLabel lblcmoJugar = new JLabel("\u00BFC\u00F3mo jugar 2048?");
 		lblcmoJugar.setForeground(new Color(255, 51, 0));
 		lblcmoJugar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblcmoJugar.setBounds(163, 5, 155, 20);
+		lblcmoJugar.setBounds(152, 0, 155, 20);
 		contentPane.add(lblcmoJugar);
 		
 		JPanel panel = new JPanel();
@@ -79,9 +80,7 @@ public class VentanaReglas extends JFrame {
 		
 		TextArea textArea = new TextArea();
 		textArea.setBounds(0, 0, 462, 247);
-		textArea.setText("*Utilizando las flechas arriba,abajo,izquierda y derecha se mueve el tablero"
-				+ "\r\n*Con la letra D se deshace la última jugada."
-				+ "\r\n*El objetivo del juego es llegar a los 2048 puntos.");
+		textArea.setText("El juego es simple, este consiste en desplazar la matriz en cuatro direcciones \r\ncos las flechas del cursor (arriba, abajo, derecha e izquierda) la matriz se \r\ndesplaza de forma integra sobre los espacios vac\u00EDos.\r\nEn cuanto las baldosas se muevan si hay dos iguales las mismas se suman,  \r\nel objetivo principal es que producto de la suma una baldosa llegue al valor \r\n2048.\r\n\r\n* Los controles son: Arriba \u2191 , Abajo \u2193, Izquierda \u2190 y Derecha \u2192.\r\n* Para deshacer una jugada presionar la letra (d).\r\n* Para reiniciar el juego presionar la tecla escape (Esc) respondiendo a la \r\n   consulta.\r\n* En caso de querer abandonar el juego solamente presiona con el click \r\n   izquierdo del mouse la caracter\u00EDstica X que se encuentra en la parte \r\n   superior derecha de la ventana principal.\r\n                BUENA SUERTE Y QUE LO DISFRUTES!!!!!!!!  {O u O}\r\n");
 		textArea.setMaximumSize(new Dimension(42767, 42767));
 		textArea.setEditable(false);
 		panel.add(textArea);

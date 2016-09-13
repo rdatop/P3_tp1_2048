@@ -14,12 +14,14 @@ import java.awt.Font;
 import logica_negocio.Matriz;
 import logica_negocio.GeneradorRandom;
 
-public class GeneradorTablero 
-{
+public class GeneradorTablero{
+	
+	//variables de instancia
 	private JFrame frameTablero;
 	private JFrame frameInicial;
 	private String nombreJugador;
 	
+	// Constructor
 	public GeneradorTablero(String jugador,JFrame frameInicio){
 		frameTablero=new JFrame();
 		frameTablero.getContentPane().setForeground(Color.LIGHT_GRAY.brighter());
@@ -29,11 +31,10 @@ public class GeneradorTablero
 		nombreJugador=jugador;
 	}
 	
+	// Crea el frame 
 	public JFrame creaFrameJuego(Matriz MatrizJuego,JLabel[][] matrizLabels){
-		
 		oirEventosTeclado(frameTablero, MatrizJuego, matrizLabels);
 		configInicialFrameJuego(frameTablero);
-		
 		MatrizJuego.iniciarMatriz();
 		GeneradorRandom.asignaPosRandom();
 		GeneradorRandom.asignaPosRandom();
@@ -43,38 +44,32 @@ public class GeneradorTablero
 		return frameTablero;
 	}
 	
+	// Llenado de Matriz
 	private void populaMatrizLabels(JFrame frameMatriz,JLabel[][] matrizLabels, Border borde) {
 		for (int i = 0; i < matrizLabels.length; i++) {
 			for (int j = 0; j < matrizLabels.length; j++) {
 				int numero = Matriz.obtenerElem(i, j);
-				
 				//se crean las coordenadas iniciales con dos posibles colores
 				if (numero != 0) {
 					matrizLabels[i][j] = new JLabel(String.valueOf(Matriz.obtenerElem(i, j)));
-					if(numero==2){//si es 2 celeste
+					if(numero==2){//si es 2 rosa claro
 						matrizLabels[i][j].setBackground(Color.PINK.brighter());
-					}else{//si es 4 amarillo
+					}else{//si es 4 rosa furton
 						matrizLabels[i][j].setBackground(Color.PINK);
 					}
 				}else{
 					matrizLabels[i][j] = new JLabel(String.valueOf(""));
 				}
-				
-				// Para que se pueda ver el color de fondo
-				matrizLabels[i][j].setOpaque(true);
-				// centrado de la etiqueta
-				matrizLabels[i][j].setHorizontalAlignment(SwingConstants.CENTER);
-				// borde de etiqueta
-				matrizLabels[i][j].setBorder(borde);
-				// se colocan etiquetas en formulario
-				frameMatriz.getContentPane().add(matrizLabels[i][j]);
+				matrizLabels[i][j].setOpaque(true);//color de fondo
+				matrizLabels[i][j].setHorizontalAlignment(SwingConstants.CENTER);//centrado de texto
+				matrizLabels[i][j].setBorder(borde);//borde de JLabels
+				frameMatriz.getContentPane().add(matrizLabels[i][j]);//textos en la matriz de JLabels
 			}
 		}
 	}
 
-	/*-- Métodos auxiliares --*/
+	/*-- Métodos auxiliares, acciones referentes a la interaccion con el usuario--*/
 	private void oirEventosTeclado(JFrame frameMatriz, Matriz matrizJuego, JLabel[][] matrizJLabel) {
-
 		frameMatriz.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -152,6 +147,19 @@ public class GeneradorTablero
 		}
 	}
 	
+	// Muestra un modal preguntandole
+	private boolean confirmacionDialog(String titulo,String mensaje){
+	    int respuesta = JOptionPane.showConfirmDialog(null, mensaje, titulo, JOptionPane.YES_NO_OPTION);
+	    if (respuesta == JOptionPane.YES_OPTION){
+	      return true;
+	    }
+	    return false;
+	}
+	
+	// Muestra el valor del puntaje en el marco del frame
+	private void seteaDatosPartida(int puntaje){
+		frameTablero.setTitle("Puntaje: "+puntaje+" - Jugador: "+nombreJugador);
+	}
 	// Configuracion inicial de frame
 	private void configInicialFrameJuego(JFrame frameMatriz) {
 		frameMatriz.setResizable(false);
@@ -161,6 +169,7 @@ public class GeneradorTablero
 		// Se crea una matriz 4x4 para acomodar las etiquetas
 		frameMatriz.getContentPane().setLayout(new GridLayout(4, 4));
 	}
+	
 	
 	// Se dibuja el tablero
 	public static void dibujarTablero(JLabel[][] matrizJLabels) {
@@ -226,8 +235,8 @@ public class GeneradorTablero
 		}
 	}
 	
+	// Se crean los textos que representan la matriz
 	private void creaTextosDeLabels(Border borde) {
-		// Se crean los textos que representan la matriz
 		JLabel lbl1 = new JLabel("i0-j0");
 		JLabel lbl2 = new JLabel("i0-j1");
 		JLabel lbl3 = new JLabel("i0-j2");
@@ -245,7 +254,7 @@ public class GeneradorTablero
 		JLabel lbl15 = new JLabel("i3-j2");
 		JLabel lbl16 = new JLabel("i3-j3");
 
-		// centrado de etiquetas
+		// Centrado de elementos dentro de la matriz de JLabels
 		lbl1.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl2.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl3.setHorizontalAlignment(SwingConstants.CENTER);
@@ -263,7 +272,7 @@ public class GeneradorTablero
 		lbl15.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl16.setHorizontalAlignment(SwingConstants.CENTER);
 
-		// borde de etiquetas
+		// Bordes de los JLabels
 		lbl1.setBorder(borde);
 		lbl2.setBorder(borde);
 		lbl3.setBorder(borde);
@@ -282,18 +291,7 @@ public class GeneradorTablero
 		lbl16.setBorder(borde);
 	}
 	
-	// Muestra el valor del puntaje en el marco del frame
-	private void seteaDatosPartida(int puntaje){
-		frameTablero.setTitle("Puntaje: "+puntaje+" - Jugador: "+nombreJugador);
-	}
 	
-	private boolean confirmacionDialog(String titulo,String mensaje){//muestra un modal preguntandole
-	    int respuesta = JOptionPane.showConfirmDialog(null, mensaje, titulo, JOptionPane.YES_NO_OPTION);
-	    if (respuesta == JOptionPane.YES_OPTION)
-	    {
-	      return true;
-	    }
-	    
-	    return false;
-	}
+	
+	
 }
