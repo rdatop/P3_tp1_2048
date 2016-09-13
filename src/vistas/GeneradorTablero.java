@@ -154,7 +154,7 @@ public class GeneradorTablero{
 				frameInicial.setVisible(true);//////e inicia la presentacion inicial
 			}else{//el usuario decidió no reintentar y es llevado a la ventana
 			///de puntajes
-				System.out.println("Pronto mostraré puntajes :P");
+				new VentanaPuntajes().instanciaPuntajes();
 			}
 			
 		}

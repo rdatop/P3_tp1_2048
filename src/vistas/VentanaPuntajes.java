@@ -24,7 +24,8 @@ public class VentanaPuntajes extends JFrame {
 			}
 		});
 	}
-	public static void main(String[] args) {
+	
+	public void instanciaPuntajes() {
 		VentanaPuntajes frame = new VentanaPuntajes();
 		frame.pack();
 		frame.setVisible(true);
