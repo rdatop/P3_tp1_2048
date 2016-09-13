@@ -137,9 +137,7 @@ public class GeneradorTablero
 	
 	// Reinicia el juego en caso que la matriz este completa
 	public void reiniciarJuego(){
-		
 		if(Matriz.matrizCompleta()==true){
-			//if(sigue jugando)->reinicio tablero ;else-> muestro puntajes
 			if(dialogReintentar()){//sí el usuario decide reintentar
 				frameTablero.setVisible(false);/////quita la matriz
 				frameInicial.setVisible(true);//////e inicia la presentacion inicial
