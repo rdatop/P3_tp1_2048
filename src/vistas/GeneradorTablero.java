@@ -7,38 +7,40 @@ import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import java.awt.Font;
 import logica_negocio.Matriz;
 import logica_negocio.GeneradorRandom;
 
-import vistas.Main;
-
 public class GeneradorTablero 
 {
-	static JFrame frame;////////////////////////////////////////////// tube q poner static
+	private JFrame frameTablero;
+	private JFrame frameInicial;
 	private String nombreJugador;
-	public GeneradorTablero(String jugador){
-		frame=new JFrame();
-		frame.getContentPane().setForeground(Color.LIGHT_GRAY.brighter());
-		frame.getContentPane().setFont(new Font("Arial Black", Font.PLAIN, 57));
+	
+	public GeneradorTablero(String jugador,JFrame frameInicio){
+		frameTablero=new JFrame();
+		frameTablero.getContentPane().setForeground(Color.LIGHT_GRAY.brighter());
+		frameTablero.getContentPane().setFont(new Font("Arial Black", Font.PLAIN, 57));
+		frameInicial=frameInicio;
 		seteaDatosPartida(0);
 		nombreJugador=jugador;
 	}
 	
 	public JFrame creaFrameJuego(Matriz MatrizJuego,JLabel[][] matrizLabels){
 		
-		oirEventosTeclado(frame, MatrizJuego, matrizLabels);
-		configInicialFrameJuego(frame);
+		oirEventosTeclado(frameTablero, MatrizJuego, matrizLabels);
+		configInicialFrameJuego(frameTablero);
 		
 		MatrizJuego.iniciarMatriz();
 		GeneradorRandom.asignaPosRandom();
 		GeneradorRandom.asignaPosRandom();
 		Border borde = BorderFactory.createLineBorder(Color.LIGHT_GRAY.darker(), 4);
-		populaMatrizLabels(frame,matrizLabels,borde);
+		populaMatrizLabels(frameTablero,matrizLabels,borde);
 		creaTextosDeLabels(borde);
-		return frame;
+		return frameTablero;
 	}
 	
 	private void populaMatrizLabels(JFrame frameMatriz,JLabel[][] matrizLabels, Border borde) {
@@ -122,10 +124,13 @@ public class GeneradorTablero
 						break;
 													
 					case KeyEvent.VK_ESCAPE:
-						reiniciarJuego();
-						frameMatriz.setTitle("salir");
-						frameMatriz.setVisible(false);/////quita la matriz
-						Main.frameInicial.setVisible(true);//////e inicia la presentacion inicial
+//						reiniciarJuego();
+//						frameMatriz.setTitle("salir");
+//						frameMatriz.setVisible(false);/////quita la matriz
+//						frameInicial.setVisible(true);//////e inicia la presentacion inicial
+						if(confirmacionDialog("Salir","Desea salir?")){
+							System.exit(0);
+						}
 						break;
 				}
 			}
@@ -135,9 +140,15 @@ public class GeneradorTablero
 	
 	// Reinicia el juego en caso que la matriz este completa
 	public void reiniciarJuego(){
-		if(Matriz.matrizCompleta()==true){
-		frame.setVisible(false);/////quita la matriz
-		Main.frameInicial.setVisible(true);//////e inicia la presentacion inicial
+		if(Matriz.matrizCompleta()==true){//si la matriz está completa
+			if(confirmacionDialog("Game Over","Reintentar?")){//sí el usuario decide reintentar
+				frameTablero.setVisible(false);/////quita la matriz
+				frameInicial.setVisible(true);//////e inicia la presentacion inicial
+			}else{//el usuario decidió no reintentar y es llevado a la ventana
+			///de puntajes
+				System.out.println("Pronto mostraré puntajes :P");
+			}
+			
 		}
 	}
 	
@@ -273,6 +284,16 @@ public class GeneradorTablero
 	
 	// Muestra el valor del puntaje en el marco del frame
 	private void seteaDatosPartida(int puntaje){
-		frame.setTitle("Puntaje: "+puntaje+" - Jugador: "+nombreJugador);
+		frameTablero.setTitle("Puntaje: "+puntaje+" - Jugador: "+nombreJugador);
+	}
+	
+	private boolean confirmacionDialog(String titulo,String mensaje){//muestra un modal preguntandole
+	    int respuesta = JOptionPane.showConfirmDialog(null, mensaje, titulo, JOptionPane.YES_NO_OPTION);
+	    if (respuesta == JOptionPane.YES_OPTION)
+	    {
+	      return true;
+	    }
+	    
+	    return false;
 	}
 }
