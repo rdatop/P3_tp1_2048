@@ -124,10 +124,13 @@ public class GeneradorTablero
 						break;
 													
 					case KeyEvent.VK_ESCAPE:
-						reiniciarJuego();
-						frameMatriz.setTitle("salir");
-						frameMatriz.setVisible(false);/////quita la matriz
-						frameInicial.setVisible(true);//////e inicia la presentacion inicial
+//						reiniciarJuego();
+//						frameMatriz.setTitle("salir");
+//						frameMatriz.setVisible(false);/////quita la matriz
+//						frameInicial.setVisible(true);//////e inicia la presentacion inicial
+						if(confirmacionDialog("Salir","Desea salir?")){
+							System.exit(0);
+						}
 						break;
 				}
 			}
@@ -137,8 +140,8 @@ public class GeneradorTablero
 	
 	// Reinicia el juego en caso que la matriz este completa
 	public void reiniciarJuego(){
-		if(Matriz.matrizCompleta()==true){
-			if(dialogReintentar()){//sí el usuario decide reintentar
+		if(Matriz.matrizCompleta()==true){//si la matriz está completa
+			if(confirmacionDialog("Game Over","Reintentar?")){//sí el usuario decide reintentar
 				frameTablero.setVisible(false);/////quita la matriz
 				frameInicial.setVisible(true);//////e inicia la presentacion inicial
 			}else{//el usuario decidió no reintentar y es llevado a la ventana
@@ -284,11 +287,7 @@ public class GeneradorTablero
 		frameTablero.setTitle("Puntaje: "+puntaje+" - Jugador: "+nombreJugador);
 	}
 	
-	private boolean dialogReintentar(){//muestra un modal preguntandole
-		//al usuario sí quiere reintentar
-		String mensaje = "Desea reintentar?";
-	    String titulo = "Game Over";
-	    // display the JOptionPane showConfirmDialog
+	private boolean confirmacionDialog(String titulo,String mensaje){//muestra un modal preguntandole
 	    int respuesta = JOptionPane.showConfirmDialog(null, mensaje, titulo, JOptionPane.YES_NO_OPTION);
 	    if (respuesta == JOptionPane.YES_OPTION)
 	    {
