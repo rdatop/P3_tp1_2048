@@ -26,6 +26,7 @@ public class GeneradorTablero{
 	private String nombreJugador;
 	private Matriz matrizJuego;
 	private JLabel[][] matrizLabels;
+	private String nombreArchivo;
 	
 	// Constructor
 	public GeneradorTablero(String jugador,JFrame frameInicio){
@@ -37,6 +38,7 @@ public class GeneradorTablero{
 		matrizLabels=new JLabel[4][4];
 		seteaDatosPartida(0);
 		nombreJugador=jugador;
+		nombreArchivo="puntajes.json";
 	}
 	
 	// Crea el frame 
@@ -84,7 +86,7 @@ public class GeneradorTablero{
 				switch (e.getKeyCode()) {
 				
 					case KeyEvent.VK_LEFT:
-						reiniciarJuego();
+						finalizarJuego();
 						Matriz._matrizAnterior=Matriz.getMatrizActual();
 						matrizJuego.moverElementosIzq();	
 						GeneradorRandom.asignaPosRandom();
@@ -93,7 +95,7 @@ public class GeneradorTablero{
 						break;	
 						
 					case KeyEvent.VK_RIGHT:
-						reiniciarJuego();
+						finalizarJuego();
 						Matriz._matrizAnterior=Matriz.getMatrizActual();
 						matrizJuego.moverElementosDer();	
 						GeneradorRandom.asignaPosRandom();
@@ -102,7 +104,7 @@ public class GeneradorTablero{
 						break;	
 						
 					case KeyEvent.VK_DOWN:
-						reiniciarJuego();
+						finalizarJuego();
 						Matriz._matrizAnterior=Matriz.getMatrizActual();
 						matrizJuego.moverElementosAbajo();
 						GeneradorRandom.asignaPosRandom();
@@ -111,7 +113,7 @@ public class GeneradorTablero{
 						break;
 						
 					case KeyEvent.VK_UP:
-						reiniciarJuego();
+						finalizarJuego();
 						Matriz._matrizAnterior=Matriz.getMatrizActual();
 						matrizJuego.moverElementosArriba();
 						GeneradorRandom.asignaPosRandom();
@@ -120,7 +122,7 @@ public class GeneradorTablero{
 						break;
 				
 					case KeyEvent.VK_D:
-						reiniciarJuego();
+						finalizarJuego();
 						matrizJuego.regresarAtras();
 						dibujarTablero(matrizJLabel);
 						seteaDatosPartida(matrizJuego.getPuntajeActual());
@@ -136,17 +138,16 @@ public class GeneradorTablero{
 		});
 	}
 	
-	// Reinicia el juego en caso que la matriz este completa
-	public void reiniciarJuego(){
+	// Finaliza el juego en caso que la matriz este completa
+	public void finalizarJuego(){
 		if(Matriz.matrizCompleta()==true){//si la matriz está completa
 			//guardo el puntaje
 			try{
-				DAOPuntajes dao=new DAOPuntajes("puntajes.json");
+				DAOPuntajes dao=new DAOPuntajes(nombreArchivo);
 				dao.agregarPuntaje(new Puntaje(nombreJugador,matrizJuego.getPuntajeActual()));
 			}catch(IOException excepcion){
 				excepcion.printStackTrace();
 			}
-			
 			
 			if(confirmacionDialog("Game Over","Reintentar?")){//sí el usuario decide reintentar
 				frameTablero.setVisible(false);/////quita la matriz
@@ -302,8 +303,4 @@ public class GeneradorTablero{
 		lbl15.setBorder(borde);
 		lbl16.setBorder(borde);
 	}
-	
-	
-	
-	
 }
