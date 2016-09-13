@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import logica_negocio.Matriz;
 
 public class Main {
 	
@@ -114,7 +113,7 @@ public class Main {
 					nombreJugador=txtNombre.getText();
 					frameInicial.setVisible(false);
 					GeneradorTablero generador=new GeneradorTablero(nombreJugador, frameInicial);
-					frameJuego=generador.creaFrameJuego(new Matriz(),new JLabel[4][4]);
+					frameJuego=generador.creaFrameJuego();
 					frameJuego.setVisible(true);
 				}
 			}

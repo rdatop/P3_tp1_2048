@@ -24,6 +24,8 @@ public class GeneradorTablero{
 	private JFrame frameTablero;
 	private JFrame frameInicial;
 	private String nombreJugador;
+	private Matriz matrizJuego;
+	private JLabel[][] matrizLabels;
 	
 	// Constructor
 	public GeneradorTablero(String jugador,JFrame frameInicio){
@@ -31,15 +33,17 @@ public class GeneradorTablero{
 		frameTablero.getContentPane().setForeground(Color.LIGHT_GRAY.brighter());
 		frameTablero.getContentPane().setFont(new Font("Arial Black", Font.PLAIN, 57));
 		frameInicial=frameInicio;
+		matrizJuego=new Matriz();
+		matrizLabels=new JLabel[4][4];
 		seteaDatosPartida(0);
 		nombreJugador=jugador;
 	}
 	
 	// Crea el frame 
-	public JFrame creaFrameJuego(Matriz MatrizJuego,JLabel[][] matrizLabels){
-		oirEventosTeclado(frameTablero, MatrizJuego, matrizLabels);
+	public JFrame creaFrameJuego(){
+		oirEventosTeclado(frameTablero, matrizJuego, matrizLabels);
 		configInicialFrameJuego(frameTablero);
-		MatrizJuego.iniciarMatriz();
+		matrizJuego.iniciarMatriz();
 		GeneradorRandom.asignaPosRandom();
 		GeneradorRandom.asignaPosRandom();
 		Border borde = BorderFactory.createLineBorder(Color.LIGHT_GRAY.darker(), 4);
@@ -138,7 +142,7 @@ public class GeneradorTablero{
 			//guardo el puntaje
 			try{
 				DAOPuntajes dao=new DAOPuntajes("puntajes.json");
-				dao.agregarPuntaje(new Puntaje(nombreJugador,1337));
+				dao.agregarPuntaje(new Puntaje(nombreJugador,matrizJuego.getPuntajeActual()));
 			}catch(IOException excepcion){
 				excepcion.printStackTrace();
 			}
