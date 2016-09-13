@@ -17,14 +17,12 @@ import logica_negocio.GeneradorRandom;
 public class GeneradorTablero 
 {
 	private JFrame frameTablero;
-	private JFrame frameInicial;
 	private String nombreJugador;
 	
-	public GeneradorTablero(String jugador,JFrame frameInicio){
+	public GeneradorTablero(String jugador){
 		frameTablero=new JFrame();
 		frameTablero.getContentPane().setForeground(Color.LIGHT_GRAY.brighter());
 		frameTablero.getContentPane().setFont(new Font("Arial Black", Font.PLAIN, 57));
-		frameInicial=frameInicio;
 		seteaDatosPartida(0);
 		nombreJugador=jugador;
 	}
@@ -142,8 +140,9 @@ public class GeneradorTablero
 	public void reiniciarJuego(){
 		if(Matriz.matrizCompleta()==true){//si la matriz está completa
 			if(confirmacionDialog("Game Over","Reintentar?")){//sí el usuario decide reintentar
-				frameTablero.setVisible(false);/////quita la matriz
-				frameInicial.setVisible(true);//////e inicia la presentacion inicial
+				InstanciadorFrameTablero.instanciaTablero(nombreJugador).setVisible(true);
+				//frameTablero.setVisible(false);/////quita la matriz
+				//frameInicial.setVisible(true);//////e inicia la presentacion inicial
 			}else{//el usuario decidió no reintentar y es llevado a la ventana
 			///de puntajes
 				System.out.println("Pronto mostraré puntajes :P");

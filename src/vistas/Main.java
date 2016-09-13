@@ -114,7 +114,7 @@ public class Main {
 					lblNombreObligatorio.setVisible(false);
 					nombreJugador=txtNombre.getText();
 					frameInicial.setVisible(false);
-					frameJuego=InstanciadorFrameTablero.instanciaTablero(nombreJugador, frameInicial);
+					frameJuego=InstanciadorFrameTablero.instanciaTablero(nombreJugador);
 					frameJuego.setVisible(true);
 				}
 			}
