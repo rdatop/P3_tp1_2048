@@ -3,31 +3,26 @@ package modelo;
 public class Puntaje {
 
 	//variables de instancia
-	private String nombreUsuario;
-	private int puntaje;
+	private String _nombreUsuario;
+	private int _puntaje;
 	
 	// Constructor
-	public Puntaje(String nombreUsuario,int puntaje)
-	{
-		this.nombreUsuario=nombreUsuario;
-		this.puntaje=puntaje;
+	public Puntaje(String nombreUsuario,int puntaje){
+		this._nombreUsuario=nombreUsuario;
+		this._puntaje=puntaje;
 	}
 	
 	// Getter y Setter
-	public String getNombreUsuario()
-	{
-		return this.nombreUsuario;
+	public String getNombreUsuario(){
+		return this._nombreUsuario;
 	}
-	public void setNombreUsuario(String nombreUsuario)
-	{
-		this.nombreUsuario = nombreUsuario;
+	public void set_nombreUsuario(String nombreUsuario){
+		this._nombreUsuario = nombreUsuario;
 	}
-	public int getPuntaje() 
-	{
-		return this.puntaje;
+	public int getPuntaje(){
+		return this._puntaje;
 	}
-	public void setPuntaje(int puntaje)
-	{
-		this.puntaje = puntaje;
+	public void set_puntaje(int puntaje){
+		this._puntaje = puntaje;
 	}
 }

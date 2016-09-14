@@ -4,7 +4,7 @@ public class Matriz {
 
 	// Variables de instancia
 	private static int [][] _matrizActual;
-	public static int [][] _matrizAnterior;
+	public static int [][] matrizAnterior;
 	
 	private int _puntajeActual;
 	private int _puntajeAnterior;
@@ -32,7 +32,7 @@ public class Matriz {
 	
 	// Deshacer al juego anterios  
 	public void regresarAtras() {
-		_matrizActual=_matrizAnterior;
+		_matrizActual=matrizAnterior;
 		setPuntajeActual(getPuntajeAnterior());
 	}
 	

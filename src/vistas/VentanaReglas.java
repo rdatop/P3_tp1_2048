@@ -20,8 +20,8 @@ import java.awt.Dimension;
 public class VentanaReglas extends JFrame {
 
 	//variables de instancia
-	private JPanel contentPane;
-	private JButton btnNewButton;
+	private JPanel _contentPane;
+	private JButton _btnNewButton;
 
 	/**
 	 * Launch the application.
@@ -45,11 +45,11 @@ public class VentanaReglas extends JFrame {
 	public VentanaReglas() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 498, 338);
-		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.menu);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		_contentPane = new JPanel();
+		_contentPane.setBackground(SystemColor.menu);
+		_contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(_contentPane);
+		_contentPane.setLayout(null);
 
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -58,24 +58,24 @@ public class VentanaReglas extends JFrame {
 			e.printStackTrace();
 		}
 
-		btnNewButton = new JButton("Entendido");
-		btnNewButton.addActionListener(new ActionListener() {
+		_btnNewButton = new JButton("Entendido");
+		_btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
 			}
 		});
-		btnNewButton.setBounds(196, 271, 89, 23);
-		contentPane.add(btnNewButton);
+		_btnNewButton.setBounds(196, 271, 89, 23);
+		_contentPane.add(_btnNewButton);
 
 		JLabel lblcmoJugar = new JLabel("\u00BFC\u00F3mo jugar 2048?");
 		lblcmoJugar.setForeground(new Color(255, 51, 0));
 		lblcmoJugar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblcmoJugar.setBounds(152, 0, 155, 20);
-		contentPane.add(lblcmoJugar);
+		_contentPane.add(lblcmoJugar);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 23, 462, 247);
-		contentPane.add(panel);
+		_contentPane.add(panel);
 		panel.setLayout(null);
 		
 		TextArea textArea = new TextArea();

@@ -21,37 +21,37 @@ import logica_negocio.GeneradorRandom;
 public class GeneradorTablero{
 	
 	//variables de instancia
-	private JFrame frameTablero;
-	private JFrame frameInicial;
-	private String nombreJugador;
-	private Matriz matrizJuego;
-	private JLabel[][] matrizLabels;
-	private String nombreArchivo;
+	private JFrame _frameTablero;
+	private JFrame _frameInicial;
+	private String _nombreJugador;
+	private Matriz _matrizJuego;
+	private JLabel[][] _matrizLabels;
+	private String _nombreArchivo;
 	
 	// Constructor
 	public GeneradorTablero(String jugador,JFrame frameInicio){
-		frameTablero=new JFrame();
-		frameTablero.getContentPane().setForeground(Color.LIGHT_GRAY.brighter());
-		frameTablero.getContentPane().setFont(new Font("Arial Black", Font.PLAIN, 57));
-		frameInicial=frameInicio;
-		matrizJuego=new Matriz();
-		matrizLabels=new JLabel[4][4];
+		_frameTablero=new JFrame();
+		_frameTablero.getContentPane().setForeground(Color.LIGHT_GRAY.brighter());
+		_frameTablero.getContentPane().setFont(new Font("Arial Black", Font.PLAIN, 12));//57
+		_frameInicial=frameInicio;
+		_matrizJuego=new Matriz();
+		_matrizLabels=new JLabel[4][4];
 		seteaDatosPartida(0);
-		nombreJugador=jugador;
-		nombreArchivo="puntajes.json";
+		_nombreJugador=jugador;
+		_nombreArchivo="puntajes.json";
 	}
 	
 	// Crea el frame 
 	public JFrame creaFrameJuego(){
-		oirEventosTeclado(frameTablero, matrizJuego, matrizLabels);
-		configInicialFrameJuego(frameTablero);
-		matrizJuego.iniciarMatriz();
+		oirEventosTeclado(_frameTablero, _matrizJuego, _matrizLabels);
+		configInicialFrameJuego(_frameTablero);
+		_matrizJuego.iniciarMatriz();
 		GeneradorRandom.asignaPosRandom();
 		GeneradorRandom.asignaPosRandom();
 		Border borde = BorderFactory.createLineBorder(Color.LIGHT_GRAY.darker(), 4);
-		populaMatrizLabels(frameTablero,matrizLabels,borde);
+		populaMatrizLabels(_frameTablero,_matrizLabels,borde);
 		creaTextosDeLabels(borde);
-		return frameTablero;
+		return _frameTablero;
 	}
 	
 	// Llenado de Matriz
@@ -87,7 +87,7 @@ public class GeneradorTablero{
 				
 					case KeyEvent.VK_LEFT:
 						finalizarJuego();
-						Matriz._matrizAnterior=Matriz.getMatrizActual();
+						Matriz.matrizAnterior=Matriz.getMatrizActual();
 						matrizJuego.moverElementosIzq();	
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
@@ -96,7 +96,7 @@ public class GeneradorTablero{
 						
 					case KeyEvent.VK_RIGHT:
 						finalizarJuego();
-						Matriz._matrizAnterior=Matriz.getMatrizActual();
+						Matriz.matrizAnterior=Matriz.getMatrizActual();
 						matrizJuego.moverElementosDer();	
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
@@ -105,7 +105,7 @@ public class GeneradorTablero{
 						
 					case KeyEvent.VK_DOWN:
 						finalizarJuego();
-						Matriz._matrizAnterior=Matriz.getMatrizActual();
+						Matriz.matrizAnterior=Matriz.getMatrizActual();
 						matrizJuego.moverElementosAbajo();
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
@@ -114,7 +114,7 @@ public class GeneradorTablero{
 						
 					case KeyEvent.VK_UP:
 						finalizarJuego();
-						Matriz._matrizAnterior=Matriz.getMatrizActual();
+						Matriz.matrizAnterior=Matriz.getMatrizActual();
 						matrizJuego.moverElementosArriba();
 						GeneradorRandom.asignaPosRandom();
 						dibujarTablero(matrizJLabel);
@@ -143,15 +143,15 @@ public class GeneradorTablero{
 		if(Matriz.matrizCompleta()==true){//si la matriz está completa
 			//guardo el puntaje
 			try{
-				DAOPuntajes dao=new DAOPuntajes(nombreArchivo);
-				dao.agregarPuntaje(new Puntaje(nombreJugador,matrizJuego.getPuntajeActual()));
+				DAOPuntajes dao=new DAOPuntajes(_nombreArchivo);
+				dao.agregarPuntaje(new Puntaje(_nombreJugador,_matrizJuego.getPuntajeActual()));
 			}catch(IOException excepcion){
 				excepcion.printStackTrace();
 			}
 			
 			if(confirmacionDialog("Game Over","Reintentar?")){//sí el usuario decide reintentar
-				frameTablero.setVisible(false);/////quita la matriz
-				frameInicial.setVisible(true);//////e inicia la presentacion inicial
+				_frameTablero.setVisible(false);/////quita la matriz
+				_frameInicial.setVisible(true);//////e inicia la presentacion inicial
 			}else{//el usuario decidió no reintentar y es llevado a la ventana
 			///de puntajes
 				new VentanaPuntajes().instanciaPuntajes();
@@ -171,7 +171,7 @@ public class GeneradorTablero{
 	
 	// Muestra el valor del puntaje en el marco del frame
 	private void seteaDatosPartida(int puntaje){
-		frameTablero.setTitle("Puntaje: "+puntaje+" - Jugador: "+nombreJugador);
+		_frameTablero.setTitle("Puntaje: "+puntaje+" - Jugador: "+_nombreJugador);
 	}
 	// Configuracion inicial de frame
 	private void configInicialFrameJuego(JFrame frameMatriz) {

@@ -10,27 +10,26 @@ import java.util.ArrayList;
 public class DAOPuntajes {
 
 	//variables de instancia
-	private Gson gson;
-	private String nombreArchivo;
-	private ArrayList<Puntaje> listaPuntajes;
+	private Gson _gson;
+	private String _nombreArchivo;
+	private ArrayList<Puntaje> _listaPuntajes;
 	
 	// Constructor
-	public DAOPuntajes(String nombreArchivo)throws IOException
-	{
-		this.gson=new Gson();
-		this.nombreArchivo=nombreArchivo;
-		this.listaPuntajes=this.desserializaJson(this.nombreArchivo);
+	public DAOPuntajes(String nombreArchivo)throws IOException{
+		this._gson=new Gson();
+		this._nombreArchivo=nombreArchivo;
+		this._listaPuntajes=this.desserializaJson(this._nombreArchivo);
 	}
 	
 	// Agrega un puntaje a la lista de puntajes y lo registra en un archivo json
 	public boolean agregarPuntaje(Puntaje puntaje){
 		try {
 		
-			this.listaPuntajes.add(puntaje);
+			this._listaPuntajes.add(puntaje);
 			
-			String puntajesJson=this.gson.toJson(this.listaPuntajes);
+			String puntajesJson=this._gson.toJson(this._listaPuntajes);
 			
-			ManejadorArchivos.escribirGuardarArchivo(this.nombreArchivo,puntajesJson);
+			ManejadorArchivos.escribirGuardarArchivo(this._nombreArchivo,puntajesJson);
 			
 			return true;
 		}catch (Exception excepcion) {
@@ -40,7 +39,7 @@ public class DAOPuntajes {
 	
 	//devuelve lista de puntajes y los usuarios que los obtuvieron
 	public ArrayList<Puntaje> obtenerPuntajes(){
-		return this.listaPuntajes;
+		return this._listaPuntajes;
 	}
 	
 	public ArrayList<Puntaje> desserializaJson(String nombreArchivo)throws IOException{
@@ -48,10 +47,9 @@ public class DAOPuntajes {
 		
 		Type collectionType=new TypeToken<ArrayList<Puntaje>>(){}.getType();
 		
-		ArrayList<Puntaje> listaPuntajes=gson.fromJson(json,collectionType);
+		ArrayList<Puntaje> listaPuntajes=_gson.fromJson(json,collectionType);
 		
-		if(listaPuntajes==null)//sí el archivo está vacio
-		{
+		if(listaPuntajes==null){//sí el archivo está vacio
 			listaPuntajes=new ArrayList<Puntaje>();//hago una lista vacía
 		}
 		

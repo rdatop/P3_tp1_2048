@@ -1,7 +1,6 @@
 package logica_negocio;
 
 import java.util.Random;
-
 import logica_negocio.Matriz;
 
 public class GeneradorRandom {
