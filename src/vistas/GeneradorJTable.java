@@ -8,7 +8,7 @@ import modelo.Puntaje;
 
 public class GeneradorJTable {
 
-	// Creamos el Modelo de la tabla con los datos anteriores
+	//Creamos el Modelo de la tabla con los datos anteriores
 	public JTable generaJTable(){
 		
 		DefaultTableModel dtm= new DefaultTableModel(new Object[0][0],nombreDeColumnas());
